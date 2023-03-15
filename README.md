@@ -1,3 +1,7 @@
 # Bazy-projekt:
 # React + node.js/express.js + mongoDB
-# System zarządzania projektami - stwórzyć bazę danych przechowującą informacje o projektach, zadaniach, pracownikach i klientach. System będzie umożliwiać tworzenie i zarządzanie projektami, przypisywanie zadań
+Krzysztof Wysocki 
+Jakub Kędra
+Paweł Konopka
+Temat: system zarządzania pokojami hotelami
+System zarządzania hotelami - stwórz bazę danych przechowującą informacje o pokojach, rezerwacjach, klientach i pracownikach. System powinien umożliwiać zarządzanie rezerwacjami, płatnościami oraz przypisywanie zadań dla pracowników.
