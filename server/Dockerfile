@@ -17,7 +17,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 3000
+EXPOSE $PORT
 
 RUN mv /usr/src/app/node_modules /node_modules
 

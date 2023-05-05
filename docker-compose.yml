@@ -1,0 +1,23 @@
+version: '3.9'
+
+#### NETWORKS ####
+
+networks: 
+    hotel-network:
+        external: false
+
+#### SERVICES ####
+
+services:
+    web-server:
+        build: ./server
+        image:  hotelmgmt-web-server
+        container_name: hotelmgmt-webserver
+        volumes:
+            - ./server:/usr/src/app
+        environment:
+            - PORT=3000
+        ports:
+            - 3000:3000
+        networks:
+            - hotel-network
