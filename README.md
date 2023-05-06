@@ -18,7 +18,7 @@ Sam projekt został stworzony na potrzeby przedmiotu Bazy Danych II na AGH.
 ## Uruchamianie
 ### Server
 
-Aby uruchomić projekt, niezbędne jest posiadanie zainstalowanego dockera na swoim urządzeniu, wraz z `docker-compose`. Następnie w głównym katalogu repozytorium wpisujemy:
+Aby uruchomić projekt (serwer wraz z bazą MongoDB), niezbędne jest posiadanie zainstalowanego dockera na swoim urządzeniu, wraz z `docker-compose`. Następnie w głównym katalogu repozytorium wpisujemy:
 ```
 npm start
 ```
