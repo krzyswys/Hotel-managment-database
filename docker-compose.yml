@@ -16,9 +16,9 @@ services:
         volumes:
             - ./server:/usr/src/app
         environment:
-            - PORT=3000
+            - PORT=4000
         ports:
-            - 3000:3000
+            - 4000:4000
         networks:
             - hotel-network
 
