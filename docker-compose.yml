@@ -1,0 +1,40 @@
+version: '3.9'
+
+#### NETWORKS ####
+
+networks: 
+    hotel-network:
+        external: false
+
+#### SERVICES ####
+
+services:
+    web-server:
+        build: ./server
+        image:  hotelmgmt-web-server
+        container_name: hotelmgmt-webserver
+        volumes:
+            - ./server:/usr/src/app
+        environment:
+            - PORT=4000
+        ports:
+            - 4000:4000
+        networks:
+            - hotel-network
+
+    mongo:
+        image: mongo
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+
+    mongo-express:
+        image: mongo-express
+        restart: always
+        ports:
+            - 8081:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: example
+            ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
