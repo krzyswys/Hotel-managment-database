@@ -18,6 +18,7 @@ const db = mongoose.connect(
   }
 ).then(() => console.log('it works!'))
 
+
 app.listen(PORT, () => {
     console.log(`Server started at http://localhost:${PORT}`)
 })
