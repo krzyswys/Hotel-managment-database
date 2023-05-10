@@ -9,8 +9,8 @@ Sam projekt został stworzony na potrzeby przedmiotu Bazy Danych II na AGH.
 - Node.js + express.js
 - MongoDB
 - Docker
-## Autorzy
 
+## Autorzy
 - Jakub Kędra [@xramzesx](https://github.com/xramzesx)
 - Paweł Konopka [@Nepommuck](https://github.com/Nepommuck)
 - Krzysztof Wysocki [@krzyswys](https://github.com/krzyswys)
@@ -28,3 +28,5 @@ Aby uruchomić aplikację webową, należy przejść do katalogu `client`, a nas
 cd ./client
 npm start
 ```
+### Schemat bazy danych
+![Database schema](https://github.com/krzyswys/Hotel-managment-database/blob/main/readme-photos/database_schema.jpeg)
