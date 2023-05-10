@@ -1,0 +1,7 @@
+module.exports.Address = require('./address.model')
+module.exports.Employee = require('./employee.model')
+module.exports.Hotel = require('./hotel.model')
+module.exports.Person = require('./person.model')
+module.exports.Reservation = require('./reservation.model')
+module.exports.Review = require('./review.model')
+module.exports.Room = require('./room.model')
