@@ -35,7 +35,8 @@ const hotelSchema = mongoose.Schema(
         required: false
         },
     elevator:{
-        type: Boolean,
+        // type: Boolean,
+        type: List,
         required: false
         },
     parkingPlace:{
