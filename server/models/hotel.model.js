@@ -2,78 +2,72 @@ const mongoose = require('mongoose');
 
 const hotelSchema = mongoose.Schema(
   {
-    hotelName:{
-        type: String,
+    name: {
+        type: String, 
         required: true
     },
-    nip:{
-        type: Number,
-        required: true
+    adress: {
+        country: { type: String, required: true },
+        city: { type: String, required: true },
+        street: { type: String, required: true },
+        houseNumber: { type: Number, required: true },
+        flatNumber: { type: Number, required: false },
+        postalCode: { type: String, required: true },
     },
-    buildDate:{
-        type: Date,
-        required: true
-    },
-    localization:{
-        type: String,
-        required: true
-    },
-    description:{
-        type: String,
-        required: false
-    },
-    numberOfRooms: {
-        type: Number,
-        required: true
-    },
-    numberOfCustomers:{
-        type: Number,
-        required: true
-    },
-    dining:{
-        type: Boolean,
-        required: false
+    rooms: [{
+        internal_number: { type: Number, required: true },
+        floor_number: { type: Number, required: true },
+        number_of_beds: { type: Number, required: true },
+        conveniences: { 
+            wifi: Boolean,
+            kitchen: Boolean
         },
-    elevator:{
-        // type: Boolean,
-        type: List,
-        required: false
-        },
-    parkingPlace:{
-        type: Boolean,
-        required: false
-    },
-    wifi:{
-        type: Boolean, 
-        required: false
-    },
-    restaturant:{
-        type: Boolean, 
-        required: false
-    },
-    kitchen:{
-        type: Boolean, 
-        required: false
-    },
-    livingRoom:{
-        type: Boolean, 
-        required: false
-    },
-    phone:{
-        type: String,
-        required: true
-    },
-    email:{
-        type: String,
-        required: true
-    },
-    // AdressID, HotrelID, ReviewID ?
+        reservations: [{
+            PersonId: {
+                type: ObjectId,
+                required: true
+            },
+            startDate: {
+                type: Date,
+                required: true
+            },
+            dueDate: {
+                type: Date,
+                required: true
+            },
+            reservationDatetime: {
+                type: Date,
+                required: true
+            },
+            paymentDatetime: {
+                type: Date,
+                required: false
+            }
+        }],
+        reviews: [{
+            PersonId: {
+                type: ObjectId,
+                required: true
+            },
+            ReviewDate: {
+                type: Date,
+                required: true
+            },
+            rating: {
+                type: Number,
+                required: true
+            },
+            reviewContent: {
+                type: String,
+                required: true
+            }
+        }]
+    }]
   },
   {
     timestamps: true,
   }
 );
-
 
 
 /**
