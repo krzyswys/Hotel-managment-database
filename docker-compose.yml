@@ -16,6 +16,7 @@ services:
         volumes:
             - ./server:/usr/src/app
         environment:
+            - MONGO_ADMIN_USERNAME=root
             - MONGO_USERNAME=hotel-manager
             - MONGO_PASSWORD=hotelmgmt
             - MONGO_URL=mongodb://mongo:27017/hotelmgmt
