@@ -1,43 +1,63 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const personSchema = mongoose.Schema({
-    
-    //// FOREIGN KEYS ////
-    
-    address : {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Address"
+const personSchema = mongoose.Schema(
+  {
+    personType: {
+        type: String,  // Enum?
+        required: true
     },
-
-    //// STRUCTURE ////
-
-    firstName : {
+    email: {
         type: String,
-        required: true,
-        index: true
+        required: true
     },
-    lastName : {
+    phoneNumber: {
         type: String,
-        required: true,
-        index: true
+        required: false
     },
-    birthDate : {
-        type: Date,
-        required: true,
+    adress: {
+        country: { type: String, required: true },
+        city: { type: String, required: true },
+        street: { type: String, required: true },
+        houseNumber: { type: Number, required: true },
+        flatNumber: { type: Number, required: false },
+        postalCode: { type: String, required: true },
     },
-    phone : {
-        type: String,
-        required : true
-    },
-    email : {
-        type: String,
-        required : true,
-        unique: true
-    }
-},{
+    reservations: [{
+        hotelId: {
+            type: ObjectId,
+            required: true
+        },
+        hotelRoom: {
+            type: Number,
+            required: true
+        },
+        startDate: {
+            type: Date,
+            required: true
+        },
+        dueDate: {
+            type: Date,
+            required: true
+        },
+        reservationDatetime: {
+            type: Date,
+            required: true
+        },
+        paymentDatetime: {
+            type: Date,
+            required: false
+        }
+    }]
+  },
+  {
     timestamps: true,
-})
+  }
+);
 
-const Person = mongoose.model('Person', personSchema)
 
-module.exports = Person
+/**
+ * @typedef Person
+ */
+const Person = mongoose.model('Person', personSchema);
+
+module.exports = Person;
