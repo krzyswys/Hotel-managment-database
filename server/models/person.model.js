@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { addressSchema } = require('../schemas');
+const { addressSchema } = require('schemas');
 
 const personSchema = mongoose.Schema({
     firstname: {

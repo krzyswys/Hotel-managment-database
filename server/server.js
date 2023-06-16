@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const models = require('./models')
+const models = require('models')
 
 const express = require('express')
 const app     = express()
