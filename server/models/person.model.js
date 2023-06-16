@@ -1,58 +1,35 @@
 const mongoose = require('mongoose');
+const { addressSchema } = require('schemas');
 
-const personSchema = mongoose.Schema(
-  {
-    personType: {
-        type: String,  // Enum?
+const personSchema = mongoose.Schema({
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
+    },
+    birthdate : {
+        type: Date,
         required: true
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
-    phoneNumber: {
+    phone: {
         type: String,
         required: false
     },
-    adress: {
-        country: { type: String, required: true },
-        city: { type: String, required: true },
-        street: { type: String, required: true },
-        houseNumber: { type: Number, required: true },
-        flatNumber: { type: Number, required: false },
-        postalCode: { type: String, required: true },
-    },
-    reservations: [{
-        hotelId: {
-            type: ObjectId,
-            required: true
-        },
-        hotelRoom: {
-            type: Number,
-            required: true
-        },
-        startDate: {
-            type: Date,
-            required: true
-        },
-        dueDate: {
-            type: Date,
-            required: true
-        },
-        reservationDatetime: {
-            type: Date,
-            required: true
-        },
-        paymentDatetime: {
-            type: Date,
-            required: false
-        }
-    }]
-  },
-  {
+    address: {
+        type: addressSchema,
+        required: true
+    }
+},{
     timestamps: true,
-  }
-);
+});
 
 
 /**

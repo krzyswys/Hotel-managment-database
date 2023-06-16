@@ -20,5 +20,5 @@ COPY . .
 EXPOSE $PORT
 
 RUN mv /usr/src/app/node_modules /node_modules
-
+ENV NODE_PATH=.
 CMD [ "nodemon", "--legacy-watch", "server.js" ]
