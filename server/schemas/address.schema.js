@@ -14,7 +14,7 @@ const addressSchema = mongoose.Schema({
         required: true 
     },
     houseNumber: { 
-        type: Number, 
+        type: String, 
         required: true 
     },
     flatNumber: { 
