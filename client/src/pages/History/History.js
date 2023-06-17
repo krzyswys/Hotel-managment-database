@@ -1,12 +1,17 @@
 import React from 'react';
 import './history.css'
-import { useNavigate } from 'react-router-dom';
+import HistoryRecord from "../HistoryRecord/HistoryRecord"
 
 const History = () => {
-  const navigation = useNavigate();
-
   return (
-    <h2>Historia uzytkownika</h2>
+    <div className="history">
+      <h2>Historia użytkownika</h2>
+      <div className="hotel-query-container">
+        <HistoryRecord hotelName="Lewiatan" room="201" dateFrom="2023-07-12" dateTo="2023-07-19"/>
+        <HistoryRecord hotelName="Biedronka" room="211" dateFrom="2023-07-30" dateTo="2023-08-02"/>
+        <HistoryRecord hotelName="Lidl" room="15" dateFrom="2023-07-09" dateTo="2023-07-19"/>
+      </div>
+    </div>
   );
 };
 
