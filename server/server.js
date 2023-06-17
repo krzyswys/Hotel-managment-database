@@ -6,6 +6,10 @@ const express = require('express')
 const app     = express()
 const PORT    = process.env.PORT ?? 3000
 
+const cors = require('cors')
+app.use(cors({
+    credentials: true,
+}))
 const routes = require('routes')
 const utils = require('utils')
 
