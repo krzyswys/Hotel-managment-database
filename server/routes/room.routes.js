@@ -12,12 +12,25 @@ const roomRoutes = app => {
     })
 
     //// TODO: finish it
-    app.post("/hotel/:hotelId/rooms", (req, res) => {
+    app.get("/hotel/:hotelId/rooms", async (req, res) => {
+
+        const { hotelId } = req.params
+
+        if (!hotelId)
+            res.json({error: "hotelId not passed"})
 
         //// VALIDATE INPUT ////
+        
+        const rooms = await Hotel.findOne({
+            _id: hotelId
+        }, {
+            _id: 0, 
+            rooms: 1
+        })
 
-        res.json({ok: true})
+        res.json(rooms)
     })
+
 
     //// TODO: finish it
     app.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
