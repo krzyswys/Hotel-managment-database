@@ -3,4 +3,5 @@ module.exports = {
     person      : require("./person.routes"),
     session     : require("./session.routes"),
     reservation : require("./reservation.routes"),
+    room        : require('./room.routes')
 }

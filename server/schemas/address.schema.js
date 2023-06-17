@@ -25,6 +25,9 @@ const addressSchema = mongoose.Schema({
         type: String, 
         required: true 
     }
+},{
+    autoCreate: false,
+    _id: false
 })
 
 module.exports = addressSchema

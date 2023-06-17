@@ -6,6 +6,10 @@ const express = require('express')
 const app     = express()
 const PORT    = process.env.PORT ?? 3000
 
+const cors = require('cors')
+app.use(cors({
+    credentials: true,
+}))
 const routes = require('routes')
 const utils = require('utils')
 
@@ -15,6 +19,7 @@ routes.hotel(app)
 routes.person(app)
 routes.session(app)
 routes.reservation(app)
+routes.room(app)
 
 //// SETUP SERVER WITH DATABASE ////
 
