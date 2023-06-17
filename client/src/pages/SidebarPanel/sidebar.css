@@ -1,0 +1,120 @@
+.sidebar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(127, 127, 127, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    width: 15vw;
+    position: absolute;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .columns-container{
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+  }
+  .filter-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+  .first-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    scale: 150%;
+  }
+  .checkbox__label{
+    display: none;
+    position: absolute;
+    background-color: rgba(156, 156, 156, 0.521);
+    font-size: 12px;
+    border-radius: 4px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  label:hover  .checkbox__label {
+    display: block;
+  }
+  .icon{
+    color: white;
+  }
+  
+  .sidebar-container button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: rgb(120, 220, 116);
+    color: #333;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar-container button:hover {
+    background-color: rgb(102, 189, 99);
+    cursor: pointer;
+  }
+  
+  .sidebar-container button:active {
+    background-color: rgb(120, 220, 116);
+  }
+  
+/* ---------------- */
+.rect {
+    width: 21px;
+    height: 21px;
+    fill: #FFF;
+    border-radius: 3px;
+  }
+  
+  .checkbox {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 2px;
+  }
+  
+  .checkbox__input {
+    position: absolute;
+    width: 1.375em;
+    height: 1.375em;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .checkbox__input:checked + .checkbox__icon .tick {
+    stroke-dashoffset: 0;
+  }
+  
+  .checkbox__icon {
+    width: 1.375em;
+    height: 1.375em;
+    flex-shrink: 0;
+    overflow: visible;
+  }
+  
+  .checkbox__icon .tick {
+    stroke-dasharray: 20px;
+    stroke-dashoffset: 20px;
+    transition: stroke-dashoffset 0.2s ease-out;
+  }
+  

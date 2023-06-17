@@ -1,0 +1,99 @@
+.registration-container {
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 50px;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  padding: 5%;
+
+  }
+  
+  h2 {
+   
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  label {
+    color: #fff;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .registration-container input[type="text"],
+  .registration-container input[type="password"] {
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .password-validation {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .registration-container button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #4d94ff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1.5em;
+  }
+  .password-validation {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .password-validation ul {
+    padding-left: 15px;
+    list-style-type: disc;
+  }
+  
+  .password-validation li {
+    color: #888;
+    font-size: 1.7em;
+  }
+  
+  .password-validation .length.valid,
+  .password-validation .number.valid,
+  .password-validation .uppercase.valid,
+  .password-validation .special-char.valid {
+    color: #4caf50;
+
+  }
+  
+  .password-validation .length.invalid,
+  .password-validation .number.invalid,
+  .password-validation .uppercase.invalid,
+  .password-validation .special-char.invalid {
+    color: #f44336;
+    font-weight: bold;
+  }

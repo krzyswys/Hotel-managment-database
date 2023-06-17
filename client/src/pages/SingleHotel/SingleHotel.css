@@ -1,0 +1,145 @@
+.singleHotel-body{
+    width: 100vw;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.image-slider-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.singleHotel-review{
+    top: 0;
+    right: 0;
+    position: absolute;
+    margin: 1%;
+}
+iframe{
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 15%;
+    aspect-ratio: 1/1;
+    margin: 0px 0px 2% 2%;
+    transition: 0.2s;
+    border: none;
+    border-radius: 10px;
+}
+iframe:hover{
+    width: 40%;
+    cursor: pointer;
+}
+.image-slider{
+    width: 60vw;
+    height: 35vw;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    
+}
+.image-slider:hover{
+    cursor: zoom-in;
+}
+.enlarged{
+    position: absolute;
+    background-size: 100%;
+    width: 90vw;
+    top: 0;
+    left: -25vw;
+    height: 90vh; 
+    z-index: 2;
+}
+.slider-button {
+    background-color: rgba(221, 221, 221, 0.164);
+    backdrop-filter: blur(10px);
+    width: 4%;
+    height: 70%;
+    transition: 0.1s;
+   
+}
+.slider-button:hover {
+    background-color: rgba(247, 226, 43, 0.726);
+}
+.right{
+    clip-path: polygon(25% 20%, 100% 0, 100% 100%, 25% 80%);
+    
+}
+.left{
+    clip-path: polygon(0 0, 75% 20%, 75% 80%, 0 100%);
+
+}
+.header-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 35vw;
+}
+.header-text>h2{
+    font-size: 5em;
+    margin: 0px;
+    text-align: center;
+}
+.header-text>h2>p{
+    font-size: 0.2em;
+    margin: 0px;
+    text-align: start;
+}
+.header-singleHotel{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(63, 63, 63, 0.692);
+    box-shadow: 0px 0px 20px 2px rgba(63, 63, 63, 0.392);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+.dsc-singleHotel{
+    color: white;
+    font-size: 1.5em;
+    padding: 4%;
+}
+.btn-singleHotel{
+    width: fit-content;
+    font-size: 2em;
+    padding: 1% 5% 1% 5%;
+    background-color: rgb(243, 211, 67);
+    transition: 0.2s;
+    border: 0px;
+    border-radius: 5px;
+}
+.btn-singleHotel:hover{
+    background-color: rgb(137, 216, 91);
+    cursor: pointer;
+}
+.room-list{
+    margin: 2%;
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    z-index: 0;
+}
+.review-list{
+    margin: 2%;
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    z-index: 0;
+}
+
