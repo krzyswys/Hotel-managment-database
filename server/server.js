@@ -15,6 +15,7 @@ routes.hotel(app)
 routes.person(app)
 routes.session(app)
 routes.reservation(app)
+routes.room(app)
 
 //// SETUP SERVER WITH DATABASE ////
 
