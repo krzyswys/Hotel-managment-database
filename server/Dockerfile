@@ -8,6 +8,8 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
+ENV NODE_PATH=.
+
 RUN npm install -g nodemon
 RUN npm install
 
@@ -20,5 +22,4 @@ COPY . .
 EXPOSE $PORT
 
 RUN mv /usr/src/app/node_modules /node_modules
-ENV NODE_PATH=.
-CMD [ "nodemon", "--legacy-watch", "server.js" ]
+CMD ["npm", "run", "dev"]

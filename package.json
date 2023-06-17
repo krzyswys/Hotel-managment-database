@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "docker-compose down && docker image rm hotelmgmt-web-server & docker-compose up"
+    "start" : "docker-compose down && docker image rm hotelmgmt-web-server & docker-compose up",
+    "logs": "docker logs -f hotelmgmt-webserver"
   },
   "repository": {
     "type": "git",

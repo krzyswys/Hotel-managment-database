@@ -26,6 +26,11 @@ const personSchema = mongoose.Schema({
     address: {
         type: addressSchema,
         required: true
+    },
+    /// TODO: add salt
+    password : {
+        type: String,
+        required: true
     }
 },{
     timestamps: true,
