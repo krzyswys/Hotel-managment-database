@@ -8,6 +8,7 @@ import SingleHotel from './pages/SingleHotel/SingleHotel';
 import HomePage from './pages/HomePage/HomePage';
 import Registration from './pages/Registration/Registration';
 import Login from './pages/Login/Login';
+import History from './pages/History/History';
 
 const Appp = () => {
   return (
@@ -18,6 +19,7 @@ const Appp = () => {
           <Route path="singleHotel" element={<SingleHotel />} />
           <Route path="registration" element={<Registration />} />
           <Route path="login" element={<Login />} />
+          <Route path="history" element={<History />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './login.css'
+import { useNavigate } from 'react-router-dom';
 import {
   FcGoogle
 } from 'react-icons/fc';
@@ -7,7 +8,9 @@ import {
 import {
   FaFacebook
 } from 'react-icons/fa';
+import appState from '../../State';
 const Login = () => {
+  const navigation = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,6 +23,9 @@ const Login = () => {
   };
 
   const handleSubmit = (event) => {
+    appState.isLoggedIn = true
+    appState.login = "Steve"
+    navigation("../history");
   //   event.preventDefault();
 
   //   fetch('/api/login', {
