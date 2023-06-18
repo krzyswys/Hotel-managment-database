@@ -15,9 +15,16 @@ const roomSchema = mongoose.Schema({
         required: true
     },
     conveniences: {
-        // TODO: add more conveniences 
         wifi: Boolean,
         kitchen: Boolean,
+        smoking: Boolean,
+        pets: Boolean,
+        children: Boolean,
+        balcony: Boolean,
+        elevator: Boolean,
+        restaurant: Boolean,
+        parking: Boolean,
+        invlusiveMeals: Boolean
     },
     photos: {
         type: [{type: String}]
