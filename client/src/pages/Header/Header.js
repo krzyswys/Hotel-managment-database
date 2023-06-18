@@ -29,6 +29,10 @@ const Header = () => {
     navigation("/");
   };
 
+  const getNumberOfCartElements = () => {
+    return appState.cart.reduce((n, element) => n + element.rooms.length, 0)
+  }
+
   var loginContent;
   if (appState.isLoggedIn)
     loginContent = <div className='nav-buttons'>
@@ -46,6 +50,11 @@ const Header = () => {
     <nav>
     <div className='nav-logo' onClick={handleHomeClick}>Logo | Nazwa</div>
     { loginContent }
+    <div class="cart-box">
+      <i>Chart</i>
+      {getNumberOfCartElements() > 0 &&
+      <p>{getNumberOfCartElements()}</p>}
+    </div>
   </nav>
   );
 };

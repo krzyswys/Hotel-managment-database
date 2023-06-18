@@ -1,5 +1,8 @@
 const appState = { 
     isLoggedIn: false,
-    login: ""
+    login: "",
+
+    cart: []
 }
+
 export default appState

@@ -3,7 +3,11 @@ import React, { useState, useEffect } from "react";
 import SingleRoomComponent from '../SingleRoomComponent/SingleRoomComponent';
 import SingleReviewComponent from '../SingleReviewComponent/SingleReviewComponent';
 import { useParams } from 'react-router-dom';
+import appState from '../../State';
+import { useNavigate } from 'react-router-dom';
+
 const SingleHotel = () => {
+  const navigation = useNavigate();
   const { id } = useParams();
   const [hotel, setHotel] = useState([]); 
   const [rooms, setRooms] = useState([]);
@@ -44,6 +48,8 @@ const SingleHotel = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isImageEnlarged, setIsImageEnlarged] = useState(false);
   const [slideDirection, setSlideDirection] = useState("next");
+  const [roomCart, setRoomCart] = useState([]);
+
   const images = [
     require("../images/pic1.jpg"),
     require("../images/pic2.jpg"),
@@ -74,6 +80,23 @@ const SingleHotel = () => {
   const closeEnlargedView = () => {
     setIsImageEnlarged(false);
   };
+
+  const addRoom = (roomNumber) => {
+    setRoomCart((prevCart) => prevCart.concat([roomNumber]))
+  }
+  const removeRoom = (roomNumber) => {
+    setRoomCart((prevCart) => prevCart.filter((val) => val != roomNumber))
+  }
+
+  const addToCart = () => {
+    if (roomCart.length <= 0)
+      return
+
+    appState.cart.push(
+      {hotelId: -1, rooms: roomCart}
+    )
+    navigation("..")
+  }
 
   return (
     <div className="singleHotel-body">
@@ -132,7 +155,7 @@ const SingleHotel = () => {
             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
             reprehenderit in
           </p>
-          <button className='btn-singleHotel'>Zamów</button>
+          <button className='btn-singleHotel' onClick={addToCart}>Zamów</button>
         </div>
       </div>
 
