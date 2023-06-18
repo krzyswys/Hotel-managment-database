@@ -7,9 +7,17 @@ const app     = express()
 const PORT    = process.env.PORT ?? 3000
 
 const cors = require('cors')
-app.use(cors({
-    credentials: true,
-}))
+const bodyParser = require('body-parser')
+
+//// SETUP EXPRESS CONFIG ////
+
+app.use(cors({ credentials: true }))
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+//// SETUP PROJECT CONFIG ////
+
 const routes = require('routes')
 const utils = require('utils')
 
