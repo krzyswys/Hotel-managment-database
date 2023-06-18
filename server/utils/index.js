@@ -1,3 +1,4 @@
 module.exports = {
-    connect : require('./connect')
+    connect : require('./connect'),
+    general : require('./general')
 }

@@ -1,14 +1,35 @@
 const mongoose = require('mongoose')
+const { addRoomReservation } = require('../procedures/reservation.proc')
 
 const reservationRoutes = app => {
-    //// TODO: finish it
-    app.post("/hotel/:hotelId/room/:roomId/reservation", (req, res) => {
-        
-        res.json({})
+    
+    app.post("/reservation", async (req, res) => {        
+        const {
+            startDate, 
+            dueDate, 
+            roomId, 
+            personId
+        } = req.body
+
+        try {
+            if (!roomId)
+                throw new Error('Pass roomId')
+            if (!personId)
+                throw new Error('Pass personId')
+
+            await addRoomReservation(personId, roomId, {
+                startDate,
+                dueDate
+            })
+            res.json({status: "ok"})
+        } catch (error) {
+            console.error(error)            
+            res.status(400).json({error})
+        }
     })
 
     //// TODO: finish it
-    app.post("/hotel/:hotelId/reservations", (req, res) => {
+    app.get("/hotel/:hotelId/reservations", (req, res) => {
 
         res.json({})
     })
