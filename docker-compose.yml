@@ -1,55 +1,55 @@
-version: '3.9'
+version: "3.9"
 
 #### NETWORKS ####
 
-networks: 
-    hotel-network:
-        external: false
+networks:
+  hotel-network:
+    external: false
 
 #### SERVICES ####
 
 services:
-    web-server:
-        build: ./server
-        image:  hotelmgmt-web-server
-        container_name: hotelmgmt-webserver
-        volumes:
-            - ./server:/usr/src/app
-        environment:
-            - MONGO_ADMIN_USERNAME=root
-            - MONGO_USERNAME=hotel-manager
-            - MONGO_PASSWORD=hotelmgmt
-            - MONGO_URL=mongodb://mongo:27017/hotelmgmt
-            - PORT=4000
-        ports:
-            - 4000:4000
-        networks:
-            - hotel-network
+  web-server:
+    build: ./server
+    image: hotelmgmt-web-server
+    container_name: hotelmgmt-webserver
+    volumes:
+      - ./server:/usr/src/app
+    environment:
+      - MONGO_ADMIN_USERNAME=root
+      - MONGO_USERNAME=hotel-manager
+      - MONGO_PASSWORD=hotelmgmt
+      - MONGO_URL=mongodb://mongo:27017/hotelmgmt
+      - PORT=4000
+    ports:
+      - 4000:4000
+    networks:
+      - hotel-network
 
-    mongo:
-        image: mongo
-        restart: always
-        ports:
-            - 6400:27017
-        volumes:
-            - ./init.mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: example
-            MONGO_INITDB_DATABASE: hotelmgmt
-            MONGO_DB_USERNAME: hotel-manager
-            MONGO_DB_PASSWORD: hotelmgmt
-        networks:
-            - hotel-network
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 6400:27017
+    volumes:
+      - ./init.mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: hotelmgmt
+      MONGO_DB_USERNAME: hotel-manager
+      MONGO_DB_PASSWORD: hotelmgmt
+    networks:
+      - hotel-network
 
-    mongo-express:
-        image: mongo-express
-        restart: always
-        ports:
-            - 8081:8081
-        environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: root
-            ME_CONFIG_MONGODB_ADMINPASSWORD: example
-            ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
-        networks:
-            - hotel-network
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8082:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - hotel-network

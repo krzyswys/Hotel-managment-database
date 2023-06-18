@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './singleRoomComponent.css'
 import {
   FaSmoking,
@@ -17,21 +17,30 @@ import {
 } from 'react-icons/tb';
 import { AiOutlineWifi } from 'react-icons/ai';
 
-const SingleRoomComponent = () => {
-  const [filters] = useState({
-    smoking: true,
-    pets: true,
-    children: true,
-    airConditioning: true,
-    kitchen: true,
-    balcony: true,
-    elevator: true,
-    restaurant: true,
-    wifi: true,
-    parking: true,
-    inclusiveMeals: true,
+const SingleRoomComponent = ({room}) => {
+  const [filters, setFilters] = useState({
+    smoking: false,
+    pets: false,
+    children: false,
+    airConditioning: false,
+    kitchen: false,
+    balcony: false,
+    elevator: false,
+    restaurant: false,
+    wifi: false,
+    parking: false,
+    inclusiveMeals: false,
   });
 
+  useEffect(() => {
+    if (room.conveniences) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        ...room.conveniences,
+      }));
+    }
+  }, [room.conveniences]);
+  
   const getFilteredIcons = () => {
     const icons = [];
 
@@ -52,9 +61,9 @@ const SingleRoomComponent = () => {
   return (
     <div className='body-room-container' >
         <div className='room-header'>
-          <p>Nr pokoju: 1</p>
-          <p>Liczba łóżek: 2</p>
-          <p>Liczba osób: 0</p>
+          <p>Nr pokoju: {room?.internalNumber}/{room?.floorNumber}</p>
+          <p>Liczba łóżek: {room?.beds}</p>
+          <p>Cena za noc: {room?.pricePerDay} zł</p>
         </div>
           <div className='room-icons-container'>{getFilteredIcons()}</div>
           <button className='room-btn'>+</button>
