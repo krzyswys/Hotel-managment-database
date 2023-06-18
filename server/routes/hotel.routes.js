@@ -17,14 +17,15 @@ const hotelRoutes = app => {
 
         const hotel = await Hotel.findOne({
             _id: new mongoose.Types.ObjectId(hotelId) 
-        }, {
-            rooms : 0
-        })
+        }
+        // dodatkowo ma zostac zwrócona liczbowa średnia ocena
+        // i wszystkie recenzje w formie takiej ze z reservation biore person name i review 
+        )
 
         res.json(hotel)
     })
 
-    //// TODO: finish it
+    //// TODO: finish it: add review and room conveniences
     app.get("/hotels", async (req, res) => {
         const hotels = await Hotel.find({}, {rooms: 0})
         

@@ -75,7 +75,7 @@
     flex-direction: row;
     margin: 0px 2px 0px 2px;
 }
-h2{
+.header h2{
     text-align: start;
     margin: 0px;
     padding: 0px;

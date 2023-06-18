@@ -82,16 +82,22 @@ iframe:hover{
     align-items: center;
     flex-direction: column;
     width: 35vw;
+    color: white;
 }
 .header-text>h2{
     font-size: 5em;
     margin: 0px;
     text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+
 }
 .header-text>h2>p{
     font-size: 0.2em;
-    margin: 0px;
+    margin: 2px;
     text-align: start;
+    color: rgb(189, 189, 189);
 }
 .header-singleHotel{
     display: flex;

@@ -15,7 +15,7 @@ const Appp = () => {
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
-          <Route path="singleHotel" element={<SingleHotel />} />
+          <Route path="singleHotel/:id" element={<SingleHotel />} />
           <Route path="registration" element={<Registration />} />
           <Route path="login" element={<Login />} />
         </Route>
