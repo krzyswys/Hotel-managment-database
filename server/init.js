@@ -176,7 +176,19 @@ utils.connect(async () => {
                     internalNumber: 100 * (floor - 1) + roomNumber,
                     floorNumber: floor,
                     beds: getRandom(1, 5),
-                    pricePerDay: getRandom(100, 400)
+                    pricePerDay: getRandom(100, 400),
+                    conveniences: {
+                        wifi: !!getRandom(0,1) ? true : undefined,
+                        kitchen: !!getRandom(0,1) ? true : undefined,
+                        smoking: !!getRandom(0,1) ? true : undefined,
+                        pets: !!getRandom(0,1) ? true : undefined,
+                        children: !!getRandom(0,1) ? true : undefined,
+                        balcony: !!getRandom(0,1) ? true : undefined,
+                        elevator: !!getRandom(0,1) ? true : undefined,
+                        restaurant: !!getRandom(0,1) ? true : undefined,
+                        parking: !!getRandom(0,1) ? true : undefined,
+                        invlusiveMeals: !!getRandom(0,1) ? true : undefined 
+                    }
                 }
 
                 hotel.rooms.push(room)
