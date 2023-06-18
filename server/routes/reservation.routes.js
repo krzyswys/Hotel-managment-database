@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { addRoomReservation } = require('../procedures/reservation.proc')
+const { addRoomReservation } = require('procedures/reservation.proc')
 
 const reservationRoutes = app => {
     
