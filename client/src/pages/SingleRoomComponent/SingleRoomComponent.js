@@ -31,7 +31,6 @@ const SingleRoomComponent = ({room}) => {
     parking: false,
     inclusiveMeals: false,
   });
-
   useEffect(() => {
     if (room.conveniences) {
       setFilters((prevFilters) => ({
@@ -66,7 +65,7 @@ const SingleRoomComponent = ({room}) => {
           <p>Cena za noc: {room?.pricePerDay} zł</p>
         </div>
           <div className='room-icons-container'>{getFilteredIcons()}</div>
-          <button className='room-btn'>+</button>
+          { getDisplayedButton() }
     </div>
   );
 };
