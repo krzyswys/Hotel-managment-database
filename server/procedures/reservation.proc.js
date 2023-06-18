@@ -3,7 +3,7 @@ const { Hotel, Person } = require('models')
 const { isRangesOverlaping } = require('utils/general')
 
 module.exports = {
-    addRoomReservation: async (personId, roomId, params) => {
+    addRoomReservation: async (personId, roomId, params, logs = true) => {
         if (!params.startDate) throw new Error("Pass startDate")
         if (!params.dueDate) throw new Error("Pass dueDate")
 
@@ -56,6 +56,7 @@ module.exports = {
 
         room.reservations.push({
             personId,
+            review: params.review,
             pricePerDay: room.pricePerDay,
             period : {
                 startDate,
@@ -65,7 +66,8 @@ module.exports = {
         
         await hotel.save()
 
-        console.log(`created new reservation for person ${personId} and room ${roomId}`)
+        if (logs)
+            console.log(`created new reservation for person ${personId} and room ${roomId}`)
         
     }
 }
