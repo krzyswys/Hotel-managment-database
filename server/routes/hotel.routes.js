@@ -29,7 +29,6 @@ const hotelRoutes = app => {
             if (!hotel) {
                 return res.status(404).json({ error: 'Hotel not found' });
             }
-            
 
             const reviews = hotel.rooms.reduce((acc, room) => {
                 const roomReviews = room.reservations.reduce((roomAcc, reservation) => {
@@ -73,94 +72,55 @@ const hotelRoutes = app => {
     
 
     //// TODO: finish it:
-    app.get("/hotels", async (req, res) => {
+    app.get("/hotels", async (req, res) => {       
         try {
-          const hotels = await Hotel.find({}, { });
-          const hotelList = [];
-      
-          for (const hotel of hotels) {
-            let totalStars = 0;
-            let totalReviews = 0;
-            const conveniences = {
-              smoking: false,
-              pets: false,
-              children: false,
-              airConditioning: false,
-              kitchen: false,
-              balcony: false,
-              elevator: false,
-              restaurant: false,
-              wifi: false,
-              parking: false,
-              inclusiveMeals: false,
-            };
-      
-            for (const room of hotel.rooms) {
-              for (const reservation of room.reservations) {
-                if (reservation.review && reservation.review.stars) {
-                  totalStars += reservation.review.stars;
-                  totalReviews++;
+            const hotels = await Hotel.find({});
+            const hotelList = [];
+
+            for (const hotel of hotels) {
+                let totalStars = 0;
+                let totalReviews = 0;
+                const conveniences = {
+                    smoking: false,
+                    pets: false,
+                    children: false,
+                    airConditioning: false,
+                    kitchen: false,
+                    balcony: false,
+                    elevator: false,
+                    restaurant: false,
+                    wifi: false,
+                    parking: false,
+                    inclusiveMeals: false,
+                };
+        
+                for (const room of hotel.rooms) {
+                    for (const reservation of room.reservations) {
+                        if (reservation.review && reservation.review.stars) {
+                            totalStars += reservation.review.stars;
+                            totalReviews++;
+                        }
+                    }
+                    
+                    for (let key in room.conveniences) {
+                        if (room.conveniences[key])
+                            conveniences[key] = true
+                    }
                 }
-              }
-      
-              if (room.conveniences.wifi) {
-                conveniences.wifi = true;
-              }
-      
-              if (room.conveniences.kitchen) {
-                conveniences.kitchen = true;
-              }
-      
-              if (room.conveniences.smoking) {
-                conveniences.smoking = true;
-              }
-      
-              if (room.conveniences.pets) {
-                conveniences.pets = true;
-              }
-      
-              if (room.conveniences.children) {
-                conveniences.children = true;
-              }
-      
-              if (room.conveniences.airConditioning) {
-                conveniences.airConditioning = true;
-              }
-      
-              if (room.conveniences.balcony) {
-                conveniences.balcony = true;
-              }
-      
-              if (room.conveniences.elevator) {
-                conveniences.elevator = true;
-              }
-      
-              if (room.conveniences.restaurant) {
-                conveniences.restaurant = true;
-              }
-      
-              if (room.conveniences.parking) {
-                conveniences.parking = true;
-              }
-      
-              if (room.conveniences.inclusiveMeals) {
-                conveniences.inclusiveMeals = true;
-              }
+        
+                const avgRating = totalReviews !== 0 ? totalStars / totalReviews : 0;
+                hotelList.push({
+                    ...hotel._doc,
+                    conveniences,
+                    avgrating: avgRating,
+                });
             }
-      
-            const avgRating = totalReviews !== 0 ? totalStars / totalReviews : 0;
-            hotelList.push({
-              ...hotel._doc,
-              conveniences,
-              avgrating: avgRating,
-            });
-          }
-      
-          res.json({ hotels: hotelList });
-        } catch (error) {
-          res.status(500).json({ error: "Something went wrong" });
-        }
-      });
+        
+            res.json({ hotels: hotelList });
+            } catch (error) {
+            res.status(500).json({ error: "Something went wrong" });
+            }
+        });
       
     
       
