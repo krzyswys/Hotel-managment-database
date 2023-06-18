@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './singleHotelComponent.css'
 
 import {
@@ -19,8 +19,7 @@ import {
 import { AiOutlineWifi } from 'react-icons/ai';
 
 const SingleHotelComponent = ({ hotel, onClick }) => {
-  
-  const { name, address, phone, email } = hotel;
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
@@ -29,7 +28,7 @@ const SingleHotelComponent = ({ hotel, onClick }) => {
   
     return `${day}.${month}.${year}`;
   };
-  const [filters] = useState({
+  const [filters, setFilters] = useState({
     smoking: true,
     pets: true,
     children: true,
@@ -42,6 +41,15 @@ const SingleHotelComponent = ({ hotel, onClick }) => {
     parking: true,
     inclusiveMeals: true,
   });
+    
+  useEffect(() => {
+    if (hotel.conveniences) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        ...hotel.conveniences,
+      }));
+    }
+  }, [hotel.conveniences]);
 
   const getFilteredIcons = () => {
     const icons = [];
@@ -69,12 +77,13 @@ const SingleHotelComponent = ({ hotel, onClick }) => {
       <div className='image-container'><div></div></div>
       <div className='description'>
         <div className='header'>
-          <h2>{name}</h2>
-          <div className='review-mark'>4.7</div>
+          <h2>{hotel?.name}</h2>
+          {hotel?.avgrating !== 0 && (
+          <div className='review-mark'>{hotel?.avgrating}</div>)}
         </div>
         <div className='header-content-container'>
-          <p>Dodano: {formatDate(hotel.createdAt)}</p>
-          <p>| {address.city}</p>
+          <p>Dodano: {formatDate(hotel?.createdAt)}</p>
+          <p>| {hotel?.address?.city}</p>
         </div>
         <p className='dsc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in . . . </p>
         <div className='footer'>

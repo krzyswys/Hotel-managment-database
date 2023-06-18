@@ -2,7 +2,15 @@ import React from 'react';
 import './singleReviewComponent.css'
 
 
-const SingleReviewComponent = () => {
+const SingleReviewComponent = ({review}) => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+  
+    return `${day}.${month}.${year}`;
+  };
 
 
   return (
@@ -10,14 +18,14 @@ const SingleReviewComponent = () => {
         <div className='profile-pic-container'></div>
         <div className='text-section'>
           <div className='revew-header'>
-            <p>Nazwa</p>
-            <p>05.06.2003</p>
+            <p>{review.name}</p>
+            <p>{formatDate(review.createdAt)}</p>
           </div>
-          <p className='rewiev-dsc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in . . .</p>
+          <p className='rewiev-dsc'>{review.content}</p>
 
         </div>
 
-        <div className='rewiev-value'>4.7</div>
+        <div className='rewiev-value'>{review.stars}</div>
     </div>
   );
 };

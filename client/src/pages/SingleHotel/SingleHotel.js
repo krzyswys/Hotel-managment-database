@@ -7,13 +7,17 @@ const SingleHotel = () => {
   const { id } = useParams();
   const [hotel, setHotel] = useState([]); 
   const [rooms, setRooms] = useState([]);
+  const [averageRating, setAverageRating] = useState([]);
+  const [reviews, setReviews] = useState([]);
   useEffect(() => {
     const fetchHotel = async () => {
       try {
         const response = await fetch(`http://localhost:4000/hotel/${id}`);
         const data = await response.json();
-        setHotel(data);
-        setRooms(data.rooms)
+        setHotel(data.hotel);
+        setRooms(data.hotel.rooms);
+        setAverageRating(data.averageRating);
+        setReviews(data.reviews);
       } catch (error) {
         console.error('Error fetching hotels:', error);
       }
@@ -78,7 +82,10 @@ const SingleHotel = () => {
         style={{position : isImageEnlarged ? 'static' : 'relative',
         width : isImageEnlarged ? '0px' : ''}}
         >
-          <p className="review-mark singleHotel-review">4.7</p>
+          {averageRating !== 0 && (
+            <p className="review-mark singleHotel-review">{averageRating}</p>
+          )}
+
           <div
             className={`image-slider ${isImageEnlarged ? 'enlarged' : ''}`}
             style={{
@@ -130,16 +137,14 @@ const SingleHotel = () => {
       </div>
 
       <div className='room-list'>
-      {rooms.map((room) => (
+      {rooms?.map((room) => (
           <SingleRoomComponent key={room.id} room={room} />
         ))}
       </div>
       <div className='review-list'>
-              <SingleReviewComponent/>
-              <SingleReviewComponent/>
-              <SingleReviewComponent/>
-              <SingleReviewComponent/>
-              <SingleReviewComponent/>
+        {reviews?.map((review) => (
+            <SingleReviewComponent key={review.id} review={review} />
+          ))}
       </div>
     </div>
   );
