@@ -33,6 +33,10 @@ const Header = () => {
     navigation("cart");
   };
 
+  const handleManagerClick = () => {
+    navigation("manager")
+  }
+
   const getNumberOfCartElements = () => {
     return appState.cart.reduce((n, element) => n + element.rooms.length, 0)
   }
@@ -40,7 +44,7 @@ const Header = () => {
   var loginContent;
   if (appState.isLoggedIn)
     loginContent = <div className='nav-buttons'>
-        <button>Menadżer | Pracownik</button> 
+        <button onClick={handleManagerClick}>Menadżer | Pracownik</button> 
         <button onClick={handleProfileClick}>Profil - {appState.login}</button> 
         <button onClick={handleLogoutClick}>Wyloguj się </button>
       </div>

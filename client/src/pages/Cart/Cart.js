@@ -34,7 +34,11 @@ const Cart = () => {
     
   return (
     <div class="cart">
-        <h2>Koszyk uzytkownika</h2>
+        {appState.isLoggedIn &&
+        <h2>Koszyk uzytkownika {appState.login}</h2>}
+        {!appState.isLoggedIn &&
+        <h2>Koszyk </h2>}
+        
         {appState.cart.length == 0 &&
         <p>Koszyk jest pusty.</p>
         }
