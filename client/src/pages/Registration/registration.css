@@ -1,9 +1,8 @@
 .registration-container {
     border-radius: 10px;
-    padding: 20px;
-    width: 300px;
+    width: 900px;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 10vh;
     background-color: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -11,7 +10,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-  padding: 5%;
+    padding: 2%;
 
   }
   
@@ -29,10 +28,17 @@
     align-items: center;
     
   }
+  .formm-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
   
   .form-group {
-    margin-bottom: 15px;
-    width: 100%;
+    margin: 15px;
+    width: 30%;
   }
   
   label {

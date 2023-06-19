@@ -49,13 +49,9 @@ iframe:hover{
     cursor: zoom-in;
 }
 .enlarged{
-    position: absolute;
-    background-size: 100%;
-    width: 90vw;
-    top: 0;
-    left: -25vw;
-    height: 90vh; 
-    z-index: 2;
+    
+    background-size: 200%;
+   
 }
 .slider-button {
     background-color: rgba(221, 221, 221, 0.164);

@@ -2,9 +2,13 @@ import React from 'react';
 import './header.css'
 import { useNavigate } from 'react-router-dom';
 import appState from '../../State';
+import { useCookies } from 'react-cookie';
 import { BsCartFill } from 'react-icons/bs';
 
+
 const Header = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['user', 'username', 'validation']);
+
   const navigation = useNavigate();
 
   const handleRegistrationClick = () => {
@@ -16,8 +20,11 @@ const Header = () => {
   };
 
   const handleLogoutClick = () => {
-    appState.isLoggedIn = false
-    appState.login = ""
+    removeCookie('user');
+    removeCookie('username');
+    removeCookie('validation');
+    appState.isLoggedIn = false;
+    appState.login = "";
     handleHomeClick()
   };
 

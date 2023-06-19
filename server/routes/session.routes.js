@@ -3,7 +3,6 @@ const { Person } = require('models')
 
 const sessionRoutes = app => {
     
-    //// TODO: finish it
     app.post("/login", async (req, res) => {
         const { email, password } = req.body
         console.log(req.body)
@@ -22,10 +21,17 @@ const sessionRoutes = app => {
             if (user.password != password)
                 throw new Error("Invalid password")
 
-            res.json({personId: user._id})
+            console.log({personId: user._id,
+                name: user.firstname})
+
+
+            res.json({personId: user._id,
+            name: user.firstname,
+        validation: true})
         } catch (error) {
             console.log(error.message)
-            res.status(400).json({error: error.message})
+            res.status(400).json({error: error.message, 
+            validation: false})
         }
 
     })
@@ -39,10 +45,11 @@ const sessionRoutes = app => {
             email,
             phone,
             address,
-            password 
+            password
         } = req.body 
         
         //// VALIDATE DATE ////
+        console.log(req.body)
 
         try {
             const newPerson = await new Person({
@@ -52,11 +59,11 @@ const sessionRoutes = app => {
                 email,
                 phone,
                 address,
-                password
+                password,
             })
 
             await newPerson.save()
-            res.json({status: "ok", personId: newPerson._id})
+            res.json({validation: 'true', personId: newPerson._id, name: newPerson.firstname})
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
