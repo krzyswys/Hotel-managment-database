@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { Hotel } = require('models')
 const { addHotel } = require('procedures/hotel.proc')
+const { checkEmployeePositionById } = require('procedures/employee.proc')
 
 
 const hotelRoutes = app => {
