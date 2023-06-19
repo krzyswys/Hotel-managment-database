@@ -5,8 +5,8 @@ nav{
     width: 90%;
     position: absolute;
     margin-bottom: 10vh;
-    overflow-x: hidden;
-    
+    /* overflow: hidden; */
+    /* overflow: hidden; */
 }
 .nav-logo{
     text-align: center;
@@ -64,4 +64,37 @@ nav{
 
 .nav-buttons>button:hover::before {
   height: 100%;
+}
+
+.cart-box {
+  position: relative;
+}
+.cart-box:hover {
+  cursor: pointer;
+}
+
+.cart-box>.cart-icon {
+  background-color: rgba(255, 255, 255, 0.716);
+  padding: 8px 12px;
+  border-radius: 5px;
+
+  font-size: 25px;
+}
+
+.cart-box>p {
+  position: absolute;
+  top: 20px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 3px;
+
+  width: 25px;
+  height: 22px;
+  /* padding: 2px 5px; */
+  overflow: visible;
+  border-radius: 20px;
 }

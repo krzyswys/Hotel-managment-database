@@ -82,7 +82,7 @@ const SingleHotelComponent = ({ hotel,image, onClick }) => {
         <div className='header'>
           <h2>{hotel?.name}</h2>
           {hotel?.avgrating !== 0 && (
-          <div className='review-mark'>{hotel?.avgrating}</div>)}
+          <div className='review-mark'>{hotel?.avgrating.toFixed(2)}</div>)}
         </div>
         <div className='header-content-container'>
           <p>Dodano: {formatDate(hotel?.createdAt)}</p>
