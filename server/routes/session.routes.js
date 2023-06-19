@@ -39,7 +39,7 @@ const sessionRoutes = app => {
             email,
             phone,
             address,
-            password 
+            password
         } = req.body 
         
         //// VALIDATE DATE ////
@@ -52,7 +52,7 @@ const sessionRoutes = app => {
                 email,
                 phone,
                 address,
-                password
+                password,
             })
 
             await newPerson.save()
