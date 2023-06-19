@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const { addRoomReservation } = require('procedures/reservation.proc')
+const { getPersonReservations, getHotelReservations } = require('../functions/index');
+const Hotel = require('../models/hotel.model')
+
 
 const reservationRoutes = app => {
     
@@ -28,28 +31,82 @@ const reservationRoutes = app => {
         }
     })
 
-    //// TODO: finish it
-    app.get("/hotel/:hotelId/reservations", (req, res) => {
+    //// TODO: test it
+    app.get("/hotel/:hotelId/reservations", async (req, res) => {
+        try {
+          const hotelId = req.params.hotelId;
+          const reservations = await getHotelReservations(hotelId);
+          res.json(reservations);
+        } catch (error) {
+          res.status(500).json({ error: "Internal Server Error" });
+        }
+      });
+      
 
-        res.json({})
-    })
+    //// TODO: test it
+    app.get("/reservations", async (req, res) => {
+        try {
+          const hotels = await Hotel.find().exec();
+          const reservations = [];
+      
+          hotels.forEach(hotel => {
+            hotel.rooms.forEach(room => {
+              room.reservations.forEach(reservation => {
+                reservations.push(reservation);
+              });
+            });
+          });
+      
+          res.json(reservations);
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      });
 
-    //// TODO: finish it
-    app.get("/reservations", (req, res) => {
+      //// TODO: test it
+    app.get("/person/:personId/reservations", async (req, res) => {
+        try {
+            const personId = req.params.personId;
+            const reservations = await getPersonReservations(personId);
+            res.json(reservations);
+          } catch (error) {
+            res.status(500).json({ error: "Internal Server Error" });
+          }
+        });
 
-        res.json({})
-    })
-
-    //// TODO: finish it
-    app.get("/person/:personId/reservations", (req, res) => {
-        
-        res.json({})
-    })
-
-    //// TODO: finish it
-    app.get("/reservation/:reservationId", (req, res) => {
-        res.json({reservationId: req.params.reservationId})
-    })
+   //// TODO: test it
+    app.get("/reservation/:reservationId", async (req, res) => {
+        const reservationId = req.params.reservationId;
+      
+        try {
+          const hotels = await Hotel.find().exec();
+          let foundReservation = null;
+      
+          hotels.forEach(hotel => {
+            hotel.rooms.forEach(room => {
+              const reservation = room.reservations.find(reservation => reservation._id.toString() === reservationId);
+              if (reservation) {
+                foundReservation = reservation;
+                return; 
+              }
+            });
+      
+            if (foundReservation) {
+              return; 
+            }
+          });
+      
+          if (foundReservation) {
+            res.json(foundReservation);
+          } else {
+            res.status(404).json({ error: 'Rezerwacja nie została znaleziona' });
+          }
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      });
 }
 
 module.exports = reservationRoutes

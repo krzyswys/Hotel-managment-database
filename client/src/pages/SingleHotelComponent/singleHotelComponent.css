@@ -25,25 +25,17 @@
     align-items: center;
     position: relative; 
     overflow: hidden;
+    background-size: 110%; 
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 5px;
+    transition: 0.5s;
     box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.192); 
   }
   
-.image-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("../images/pic4.jpg");
-    background-size: cover; 
-    background-position: center;
-    transition: transform 0.3s; 
-  }
-  
-.image-container:hover::before {
-    transform: scale(1.2); 
+
+.image-container:hover {
+    background-size: 130%;
   }
 .description{
     width: 70%;

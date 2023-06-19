@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const { Hotel } = require('models')
+const { getAvailableRooms } = require('functions')
+const { getConveniences } = require('utils/general')
 
 const roomRoutes = app => {
     //// TODO: finish it
@@ -11,36 +13,48 @@ const roomRoutes = app => {
         res.json({})
     })
 
-    //// TODO: finish it
     app.get("/hotel/:hotelId/rooms", async (req, res) => {
 
         const { hotelId } = req.params
-
-        if (!hotelId)
-            res.json({error: "hotelId not passed"})
-
-        //// VALIDATE INPUT ////
+        const conveniences = getConveniences(req.query)
         
-        const rooms = await Hotel.findOne({
-            _id: hotelId
-        }, {
-            _id: 0, 
-            rooms: 1
-        })
+        let { startDate, dueDate } = req.query
 
-        res.json(rooms)
+        startDate = startDate ? new Date(req.query.startDate) : undefined
+        dueDate = dueDate ? new Date(req.query.dueDate) : undefined
+
+        try {
+            const rooms = await getAvailableRooms(hotelId, startDate, dueDate ?? 0, conveniences)
+
+            res.json({hotelId, rooms})
+        } catch (error) {
+            res.status(400).json({error: error.message})
+        }
     })
 
 
-    //// TODO: finish it
     app.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
         const { hotelId, roomId } = req.params
         
-        const room = await Hotel.findOne({})
+        try {
+            const hotel = await Hotel.findOne({
+                _id: new mongoose.Types.ObjectId(hotelId)
+            }, {
+                "rooms.reservations": 0
+            })
+            
+            if (!hotel)
+                throw new Error("Hotel not found")
+    
+            const room = hotel.rooms.id(
+                new mongoose.Types.ObjectId(roomId)
+            )
+            
+            res.json({room})
 
-        const hotels = await Hotel.find({}, {rooms: 0})
-        
-        res.json({hotels})
+        } catch (error) {
+            res.status(400).json({error: error.message})
+        }
     })
 }
 

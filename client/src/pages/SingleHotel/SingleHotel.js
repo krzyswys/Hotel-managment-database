@@ -13,15 +13,20 @@ const SingleHotel = () => {
   const [rooms, setRooms] = useState([]);
   const [averageRating, setAverageRating] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [images, setImages] = useState([]);
+  const [roomCart, setRoomCart] = useState([]);
   useEffect(() => {
     const fetchHotel = async () => {
       try {
         const response = await fetch(`http://localhost:4000/hotel/${id}`);
         const data = await response.json();
+        const imagesS = await extractImageLinks(data.hotel);
+
         setHotel(data.hotel);
         setRooms(data.hotel.rooms);
         setAverageRating(data.averageRating);
         setReviews(data.reviews);
+        setImages(imagesS)
       } catch (error) {
         console.error('Error fetching hotels:', error);
       }
@@ -48,15 +53,12 @@ const SingleHotel = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isImageEnlarged, setIsImageEnlarged] = useState(false);
   const [slideDirection, setSlideDirection] = useState("next");
-  const [roomCart, setRoomCart] = useState([]);
-
-  const images = [
-    require("../images/pic1.jpg"),
-    require("../images/pic2.jpg"),
-    require("../images/pic3.jpg"),
-    require("../images/pic4.jpg"),
-    require("../images/pic5.jpg"),
-  ];
+    
+  async function extractImageLinks(hotel) {
+    const imageArray = hotel.photos;
+    const imgs = await Promise.all(imageArray.map(async (photo) => photo));
+    return imgs;
+  }
 
   // useEffect(() => {
   //   const timer = setTimeout(nextImage, 3000); 
