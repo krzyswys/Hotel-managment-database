@@ -3,7 +3,6 @@ const { Person } = require('models')
 
 const sessionRoutes = app => {
     
-    //// TODO: finish it
     app.post("/login", async (req, res) => {
         const { email, password } = req.body
         console.log(req.body)
@@ -22,10 +21,17 @@ const sessionRoutes = app => {
             if (user.password != password)
                 throw new Error("Invalid password")
 
-            res.json({personId: user._id})
+            console.log({personId: user._id,
+                name: user.firstname})
+
+
+            res.json({personId: user._id,
+            name: user.firstname,
+        validation: true})
         } catch (error) {
             console.log(error.message)
-            res.status(400).json({error: error.message})
+            res.status(400).json({error: error.message, 
+            validation: false})
         }
 
     })

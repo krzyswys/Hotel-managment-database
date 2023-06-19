@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "docker-compose down && docker image rm hotelmgmt-web-server & docker-compose up",
+    "start": "docker-compose down && docker image rm hotelmgmt-web-server & docker-compose up",
     "logs": "docker logs -f hotelmgmt-webserver"
   },
   "repository": {
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/krzyswys/Hotel-managment-database/issues"
   },
-  "homepage": "https://github.com/krzyswys/Hotel-managment-database#readme"
+  "homepage": "https://github.com/krzyswys/Hotel-managment-database#readme",
+  "dependencies": {
+    "react-cookie": "^4.1.1"
+  }
 }

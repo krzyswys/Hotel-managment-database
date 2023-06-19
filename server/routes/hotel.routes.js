@@ -5,7 +5,6 @@ const { addHotel } = require('procedures/hotel.proc')
 
 const hotelRoutes = app => {
 
-    //// TODO: finish it
     app.post("/hotel", async (req, res) => {
         const {
             name, 

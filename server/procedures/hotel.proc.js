@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
-const { Hotel, Person } = require('models')
-const { isRangesOverlaping } = require('utils/general')
 
 module.exports = {
-    //TODO: validation?
     addHotel: async (name, address, phone, email, photos,logs = true) => {
         const requiredFields = [
             { field: name, name: 'name' },

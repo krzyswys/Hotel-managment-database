@@ -2,13 +2,6 @@ const mongoose = require('mongoose')
 const { Person } = require('models')
 
 const personRoutes = app => {
-    //// TODO: finish it
-    app.post("/person", (req, res) => {
-            res.json({})
-    })
-
-
-    //// TODO: test it
 
     app.get("/person/:personId", async (req, res) => {
         const {personId} = req.params
