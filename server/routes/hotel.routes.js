@@ -4,6 +4,17 @@ const { addHotel } = require('procedures/hotel.proc')
 
 
 const hotelRoutes = app => {
+    app.delete("/hotel/:hotelId", async (req, res) => {
+        const hotelId = req.params.hotelId;
+        
+        try {
+            await Hotel.findByIdAndDelete(hotelId);
+            res.json({ status: "ok" });
+        } catch (error) {
+            console.error(error);
+            res.status(400).json({ error });
+        }
+    });
 
     app.post("/hotel", async (req, res) => {
         const {

@@ -5,6 +5,19 @@ const { getConveniences } = require('utils/general')
 const { addRoom } = require('procedures/room.proc')
 
 const roomRoutes = app => {
+    app.delete("/hotel/:hotelId/room/:roomId", async (req, res) => {
+        const hotelId = req.params.hotelId;
+        const roomId = req.params.roomId;
+        
+        try {
+            await deleteRoom(hotelId, roomId); 
+            res.json({ status: "ok" });
+        } catch (error) {
+            console.error(error);
+            res.status(400).json({ error });
+        }
+    });
+
     app.post("/hotel/:hotelId/room", async (req, res) => {
         const {
             internalNumber,
@@ -16,7 +29,7 @@ const roomRoutes = app => {
         } = req.body
         const hotelId = req.params.hotelId;
         try {
-            await addHotel(hotelId,internalNumber,  floorNumber, beds, conveniences, photos, pricePerDay,)
+            await addRoom(hotelId,internalNumber,  floorNumber, beds, conveniences, photos, pricePerDay,)
             res.json({status: "ok"})
         } catch (error) {
             console.error(error)            

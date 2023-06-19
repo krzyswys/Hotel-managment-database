@@ -54,5 +54,26 @@ module.exports = {
         if (logs)
             console.log(`created new room: ${internalNumber} in hotel: ${hotelId}`)
         
+    },
+    deleteRoom: async (hotelId, roomId)=> {
+        try {
+            const hotel = await Hotel.findById(hotelId);
+    
+            if (!hotel) {
+                throw new Error("Hotel not found");
+            }
+    
+            const roomIndex = hotel.rooms.findIndex(room => room._id.toString() === roomId);
+    
+            if (roomIndex === -1) {
+                throw new Error("Room not found");
+            }
+    
+            hotel.rooms.splice(roomIndex, 1);
+    
+            await hotel.save();
+        } catch (error) {
+            throw new Error(`Failed to delete room: ${error.message}`);
+        }
     }
 }

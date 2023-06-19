@@ -1,10 +1,22 @@
 const mongoose = require('mongoose')
-const { addRoomReservation } = require('procedures/reservation.proc')
+const { addRoomReservation, deleteRoomReservation } = require('procedures/reservation.proc')
 const { getPersonReservations, getHotelReservations } = require('../functions/index');
 const Hotel = require('../models/hotel.model')
 
 
 const reservationRoutes = app => {
+    app.delete("/reservations/:reservationId/:personId", async (req, res) => {
+      const reservationId = req.params.reservationId;
+      const personId = req.params.personId;
+      
+      try {
+          await deleteRoomReservation(personId, reservationId);
+          res.json({ status: "ok" });
+      } catch (error) {
+          console.error(error);
+          res.status(400).json({ error });
+      }
+  });
     
     app.post("/reservation", async (req, res) => {        
         const {
