@@ -11,8 +11,8 @@ const hotelRoutes = app => {
         res.json({ok: true})
     })
 
-    //// TODO: finish it
     app.get("/hotel/:hotelId", async (req, res) => {
+
         const { hotelId } = req.params;
     
         try {
@@ -57,8 +57,7 @@ const hotelRoutes = app => {
                     }
                 });
             });
-    
-            const averageRating = totalReviews > 0 ? totalStars / totalReviews : 0;
+            const averageRating = Math.round((totalReviews > 0 ? totalStars / totalReviews : 0)*10)/10;
     
             res.json({
                 hotel,
@@ -71,7 +70,6 @@ const hotelRoutes = app => {
     });
     
 
-    //// TODO: finish it:
     app.get("/hotels", async (req, res) => {       
         try {
             const hotels = await Hotel.find({});
@@ -108,7 +106,7 @@ const hotelRoutes = app => {
                     }
                 }
         
-                const avgRating = totalReviews !== 0 ? totalStars / totalReviews : 0;
+                const avgRating = Math.round((totalReviews !== 0 ? totalStars / totalReviews : 0)*10)/10;
                 hotelList.push({
                     ...hotel._doc,
                     conveniences,

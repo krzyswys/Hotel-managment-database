@@ -20,8 +20,8 @@
 }
 .profile-pic-container{
     border-radius: 100%;
-    width: 20%;
-    background-image:  url("../images/pic2.jpg");;
+    width: 150px;
+    background-image:  url("../images/no-profile-picture-icon.png");;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

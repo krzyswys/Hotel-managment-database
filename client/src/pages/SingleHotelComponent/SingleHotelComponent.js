@@ -18,7 +18,8 @@ import {
 } from 'react-icons/tb';
 import { AiOutlineWifi } from 'react-icons/ai';
 
-const SingleHotelComponent = ({ hotel, onClick }) => {
+const SingleHotelComponent = ({ hotel,image, onClick }) => {
+  console.log(image)
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -74,7 +75,9 @@ const SingleHotelComponent = ({ hotel, onClick }) => {
 
   return (
     <div className='body-container' onClick={handleClick}>
-      <div className='image-container'><div></div></div>
+      <div className='image-container' style={{
+              backgroundImage: `url("${image}")`,
+            }}></div>
       <div className='description'>
         <div className='header'>
           <h2>{hotel?.name}</h2>

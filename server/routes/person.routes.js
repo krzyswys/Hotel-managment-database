@@ -3,16 +3,29 @@ const { Person } = require('models')
 
 const personRoutes = app => {
     //// TODO: finish it
-    app.get("/person/:personId", (req, res) => {
-        const {personId} = req.params
-
-        res.json({personId})
-    })
-
-    //// TODO: finish it
     app.post("/person", (req, res) => {
-        res.json({})
+            res.json({})
     })
+
+
+    //// TODO: test it
+
+    app.get("/person/:personId", async (req, res) => {
+        const {personId} = req.params
+        try{
+            const person = await Person.findOne({
+                _id: new mongoose.Types.ObjectId(personId)
+            })
+            res.json({person})
+
+        }catch (err){
+            res.status(500).json({ error: 'Couldnt find person of id ', personId });
+            res.json({})
+        }
+
+    })
+
+
 
     app.get("/persons", async (req, res) => {
         const persons = await Person.find({})
