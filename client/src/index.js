@@ -10,6 +10,7 @@ import Registration from './pages/Registration/Registration';
 import Login from './pages/Login/Login';
 import History from './pages/History/History';
 import Cart from './pages/Cart/Cart';
+import ManagerView from './pages/ManagerView/ManagerView';
 
 const Appp = () => {
   return (
@@ -22,6 +23,7 @@ const Appp = () => {
           <Route path="login" element={<Login />} />
           <Route path="history" element={<History />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="manager" element={<ManagerView />} />
         </Route>
       </Routes>
     </BrowserRouter>
