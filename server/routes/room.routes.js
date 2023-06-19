@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const { Hotel } = require('models')
+const { getOverlappingRoomIds } = require('functions')
+const { getConveniences } = require('utils/general')
 
 const roomRoutes = app => {
     //// TODO: finish it
@@ -11,24 +13,53 @@ const roomRoutes = app => {
         res.json({})
     })
 
-    //// TODO: finish it
     app.get("/hotel/:hotelId/rooms", async (req, res) => {
 
         const { hotelId } = req.params
-
-        if (!hotelId)
-            res.json({error: "hotelId not passed"})
-
-        //// VALIDATE INPUT ////
+        const conveniences = getConveniences(req.query)
         
-        const rooms = await Hotel.findOne({
-            _id: hotelId
-        }, {
-            _id: 0, 
-            rooms: 1
-        })
+        let { startDate, dueDate } = req.query
 
-        res.json(rooms)
+        startDate = startDate ? new Date(req.query.startDate) : undefined
+        dueDate = dueDate ? new Date(req.query.dueDate) : undefined
+
+        try {
+
+            if (startDate && !dueDate || !startDate && dueDate )
+                throw new Error('Pass startDate & dueDate')
+
+            const rooms = await Hotel.aggregate([{
+                $match : {_id: new mongoose.Types.ObjectId(hotelId)}
+            },{
+                $unwind : "$rooms"
+            },{
+                $match : {
+                    "rooms._id": {
+                        $nin : await getOverlappingRoomIds(hotelId, startDate, dueDate)
+                    },
+                }
+            },{
+                $replaceRoot : { 
+                    newRoot: "$rooms"
+                }
+            },{
+                $project: {
+                    reservations: false
+                }
+            }])
+
+            
+            res.json({hotelId, rooms: rooms.filter(room => {
+                for (let key in conveniences) {
+                    if (!room.conveniences[key])
+                        return false
+                }
+                return true
+            })})
+
+        } catch (error) {
+            res.status(400).json({error: error.message})
+        }
     })
 
 
