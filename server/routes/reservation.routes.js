@@ -31,7 +31,6 @@ const reservationRoutes = app => {
         }
     })
 
-    //// TODO: test it
     app.get("/hotel/:hotelId/reservations", async (req, res) => {
         try {
           const hotelId = req.params.hotelId;
@@ -43,7 +42,6 @@ const reservationRoutes = app => {
       });
       
 
-    //// TODO: test it
     app.get("/reservations", async (req, res) => {
         try {
           const hotels = await Hotel.find().exec();
@@ -64,7 +62,6 @@ const reservationRoutes = app => {
         }
       });
 
-      //// TODO: test it
     app.get("/person/:personId/reservations", async (req, res) => {
         try {
             const personId = req.params.personId;
@@ -75,7 +72,6 @@ const reservationRoutes = app => {
           }
         });
 
-   //// TODO: test it
     app.get("/reservation/:reservationId", async (req, res) => {
         const reservationId = req.params.reservationId;
       

@@ -1,16 +1,29 @@
 const mongoose = require('mongoose')
 const { Hotel } = require('models')
+const { addHotel } = require('procedures/hotel.proc')
+
 
 const hotelRoutes = app => {
 
     //// TODO: finish it
-    app.post("/hotel", (req, res) => {
+    app.post("/hotel", async (req, res) => {
+        const {
+            name, 
+            address, 
+            phone,
+            email,
+            photos,
+            description
+        } = req.body
 
-        //// VALIDATE INPUT ////
-
-        res.json({ok: true})
+        try {
+            await addHotel(name,address, phone, email, photos, description)
+            res.json({status: "ok"})
+        } catch (error) {
+            console.error(error)            
+            res.status(400).json({error})
+        }
     })
-
     app.get("/hotel/:hotelId", async (req, res) => {
 
         const { hotelId } = req.params;
