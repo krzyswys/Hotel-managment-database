@@ -17,7 +17,9 @@ import {
 } from 'react-icons/tb';
 import { AiOutlineWifi } from 'react-icons/ai';
 
-const SingleRoomComponent = ({room}) => {
+const SingleRoomComponent = (props) => {
+  const room = props.room
+
   const [filters, setFilters] = useState({
     smoking: false,
     pets: false,
@@ -57,6 +59,24 @@ const SingleRoomComponent = ({room}) => {
     return icons;
   };
 
+  const [isRoomTaken, setRoomTaken] = useState(false);
+  const getDisplayedButton = () => {
+    if (isRoomTaken)
+      return <button className='room-btn remove' onClick={
+        () => {
+          props.funs.removeRoom(room)
+          setRoomTaken((_) => false)
+        }
+      }>-</button>
+    else
+      return <button className='room-btn' onClick={
+        () => {
+          props.funs.addRoom(room)
+          setRoomTaken((_) => true)
+        }
+      }>+</button>
+  }
+
   return (
     <div className='body-room-container' >
         <div className='room-header'>
@@ -71,4 +91,3 @@ const SingleRoomComponent = ({room}) => {
 };
 
 export default SingleRoomComponent;
-

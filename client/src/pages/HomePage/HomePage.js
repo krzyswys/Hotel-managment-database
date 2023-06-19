@@ -29,7 +29,6 @@ const HomePage = () => {
   }, []);
 
 
-
   return (
     <div className="home-page">
       <div className="title-container">

@@ -2,10 +2,10 @@ import React from 'react';
 import './header.css'
 import { useNavigate } from 'react-router-dom';
 import appState from '../../State';
+import { BsCartFill } from 'react-icons/bs';
 
 const Header = () => {
   const navigation = useNavigate();
-  // var count = 0
 
   const handleRegistrationClick = () => {
     navigation("registration");
@@ -29,6 +29,10 @@ const Header = () => {
     navigation("/");
   };
 
+  const handleCartClick = () => {
+    navigation("cart");
+  };
+
   const getNumberOfCartElements = () => {
     return appState.cart.reduce((n, element) => n + element.rooms.length, 0)
   }
@@ -50,10 +54,12 @@ const Header = () => {
     <nav>
     <div className='nav-logo' onClick={handleHomeClick}>Logo | Nazwa</div>
     { loginContent }
-    <div class="cart-box">
-      <i>Chart</i>
+    <div class="cart-box" onClick={handleCartClick}>
+      <div class="cart-icon">
+        <BsCartFill key="cart"/>
+      </div>
       {getNumberOfCartElements() > 0 &&
-      <p>{getNumberOfCartElements()}</p>}
+      <p class="elements-in-cart">{ getNumberOfCartElements() }</p>}
     </div>
   </nav>
   );
