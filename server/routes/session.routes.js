@@ -49,6 +49,7 @@ const sessionRoutes = app => {
         } = req.body 
         
         //// VALIDATE DATE ////
+        console.log(req.body)
 
         try {
             const newPerson = await new Person({
@@ -62,7 +63,7 @@ const sessionRoutes = app => {
             })
 
             await newPerson.save()
-            res.json({status: "ok", personId: newPerson._id})
+            res.json({validation: 'true', personId: newPerson._id, name: newPerson.firstname})
         } catch (error) {
             res.status(400).json({ error: error.message })
         }

@@ -42,7 +42,7 @@ const Login = () => {
         if (data.validation) {
           setCookie('user', data.personId, { path: '/' }); 
           setCookie('username', data.name, { path: '/' }); 
-          setCookie('validation', data.name, { path: '/' }); 
+          setCookie('validation', data.validation, { path: '/' }); 
           }
       } catch (error) {
         console.error('Błąd:', error);
