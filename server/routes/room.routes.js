@@ -2,17 +2,27 @@ const mongoose = require('mongoose')
 const { Hotel } = require('models')
 const { getAvailableRooms } = require('functions')
 const { getConveniences } = require('utils/general')
+const { addRoom } = require('procedures/room.proc')
 
 const roomRoutes = app => {
-    //// TODO: finish it
-    app.post("/hotel/:hotelId/room", (req, res) => {
-        const { hotelId } = req.params
-
-        //// VALIDATE ROOM ////
-
-        res.json({})
+    app.post("/hotel/:hotelId/room", async (req, res) => {
+        const {
+            internalNumber,
+            floorNumber,
+            beds,
+            conveniences,
+            photos,
+            pricePerDay,
+        } = req.body
+        const hotelId = req.params.hotelId;
+        try {
+            await addHotel(hotelId,internalNumber,  floorNumber, beds, conveniences, photos, pricePerDay,)
+            res.json({status: "ok"})
+        } catch (error) {
+            console.error(error)            
+            res.status(400).json({error})
+        }
     })
-
     app.get("/hotel/:hotelId/rooms", async (req, res) => {
 
         const { hotelId } = req.params
