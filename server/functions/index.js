@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
+const FuzzySearch = require('fuzzy-search')
 const { Hotel } = require('models')
-// const Hotel = require('../models/hotel.model')
 
 async function getPersonReservations(personId) {
     try {
@@ -96,12 +96,40 @@ module.exports = {
 
         return rooms.map(({_id}) => _id)
     },
+    fuzzySearchHotel : (hotels, pattern) => {
+        if (!pattern)
+            return hotels
+        
+        const searcher = new FuzzySearch(hotels, [
+            "name",
+            "address.country",
+            "address.city",
+            "address.street",
+            "address.houseNumber",
+        ])
+        
+        const result = new Set(searcher.search(pattern))
+
+        if (!pattern.split(" "))
+            return [...result]
+
+        for (const pat of pattern.split(" ")) {
+            const searchResult = searcher.search(pat)
+
+            for (const hotel of searchResult)
+                result.add(hotel)
+        }
+
+        return [...result]
+    },
     getAvailableRooms: async (hotelId, startDate, dueDate, conveniences) => {
         if (startDate && !dueDate || !startDate && dueDate )
             throw new Error('Pass startDate & dueDate')
 
+        hotelId = typeof hotelId == 'string' ? new mongoose.Types.ObjectId(hotelId) : hotelId
+
         const rooms = await Hotel.aggregate([{
-            $match : {_id: new mongoose.Types.ObjectId(hotelId)}
+            $match : {_id: hotelId}
         },{
             $unwind : "$rooms"
         },{
