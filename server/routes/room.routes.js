@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { Hotel } = require('models')
-const { getOverlappingRoomIds } = require('functions')
+const { getAvailableRooms } = require('functions')
 const { getConveniences } = require('utils/general')
 
 const roomRoutes = app => {
@@ -24,38 +24,9 @@ const roomRoutes = app => {
         dueDate = dueDate ? new Date(req.query.dueDate) : undefined
 
         try {
+            const rooms = await getAvailableRooms(hotelId, startDate, dueDate ?? 0, conveniences)
 
-            if (startDate && !dueDate || !startDate && dueDate )
-                throw new Error('Pass startDate & dueDate')
-
-            const rooms = await Hotel.aggregate([{
-                $match : {_id: new mongoose.Types.ObjectId(hotelId)}
-            },{
-                $unwind : "$rooms"
-            },{
-                $match : {
-                    "rooms._id": {
-                        $nin : await getOverlappingRoomIds(hotelId, startDate, dueDate)
-                    },
-                }
-            },{
-                $replaceRoot : { 
-                    newRoot: "$rooms"
-                }
-            },{
-                $project: {
-                    reservations: false
-                }
-            }])
-            
-            res.json({hotelId, rooms: rooms.filter(room => {
-                for (let key in conveniences) {
-                    if (!room.conveniences[key])
-                        return false
-                }
-                return true
-            })})
-
+            res.json({hotelId, rooms})
         } catch (error) {
             res.status(400).json({error: error.message})
         }
