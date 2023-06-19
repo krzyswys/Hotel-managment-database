@@ -24,7 +24,8 @@ const roomSchema = mongoose.Schema({
         elevator: Boolean,
         restaurant: Boolean,
         parking: Boolean,
-        invlusiveMeals: Boolean
+        invlusiveMeals: Boolean,
+        airConditioning: Boolean
     },
     photos: {
         type: [{type: String}]
@@ -33,6 +34,10 @@ const roomSchema = mongoose.Schema({
         type: [reservationSchema]
     },
     pricePerDay: {
+        type: Number,
+        required: true
+    },
+    maxCapacity: {
         type: Number,
         required: true
     }

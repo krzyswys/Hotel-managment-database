@@ -8,7 +8,8 @@ const conveniences = [
     "elevator",
     "restaurant",
     "parking",
-    "invlusiveMeals"
+    "invlusiveMeals",
+    "airConditioning"
 ]
 
 module.exports = {

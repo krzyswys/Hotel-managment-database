@@ -69,5 +69,32 @@ module.exports = {
         if (logs)
             console.log(`created new reservation for person ${personId} and room ${roomId}`)
         
+    },
+    deleteRoomReservation: async (personId, reservationId) => {
+        try {
+            const hotel = await Hotel.findOne({ "rooms.reservations._id": reservationId });
+    
+            if (!hotel) {
+                throw new Error(`Hotel with reservation ${reservationId} not found`);
+            }
+    
+            const room = hotel.rooms.find(room => room.reservations.some(reservation => reservation._id.toString() === reservationId));
+    
+            if (!room) {
+                throw new Error(`Room with reservation ${reservationId} not found`);
+            }
+    
+            const reservation = room.reservations.find(reservation => reservation._id.toString() === reservationId && reservation.personId.toString() === personId);
+    
+            if (!reservation) {
+                throw new Error(`Reservation not found for person ${personId} with reservation ${reservationId}`);
+            }
+    
+            room.reservations.pull(reservation._id);
+    
+            await hotel.save();
+        } catch (error) {
+            throw new Error(`Failed to delete room reservation: ${error.message}`);
+        }
     }
 }

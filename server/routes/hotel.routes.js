@@ -1,20 +1,48 @@
 const mongoose = require('mongoose')
 const { Hotel } = require('models')
+const { addHotel } = require('procedures/hotel.proc')
+const { checkEmployeePositionById } = require('procedures/employee.proc')
+const { getAvailableRooms, fuzzySearchHotel } = require('functions')
+const { getConveniences } = require('utils/general')
+
+
 
 const hotelRoutes = app => {
+    app.delete("/hotel/:hotelId", async (req, res) => {
+        const hotelId = req.params.hotelId;
+        
+        try {
+            await Hotel.findByIdAndDelete(hotelId);
+            res.json({ status: "ok" });
+        } catch (error) {
+            console.error(error);
+            res.status(400).json({ error });
+        }
+    });
 
-    //// TODO: finish it
-    app.post("/hotel", (req, res) => {
+    app.post("/hotel", async (req, res) => {
+        const {
+            name, 
+            address, 
+            phone,
+            email,
+            photos,
+            description
+        } = req.body
 
-        //// VALIDATE INPUT ////
-
-        res.json({ok: true})
+        try {
+            await addHotel(name,address, phone, email, photos, description)
+            res.json({status: "ok"})
+        } catch (error) {
+            console.error(error)            
+            res.status(400).json({error})
+        }
     })
-
     app.get("/hotel/:hotelId", async (req, res) => {
 
         const { hotelId } = req.params;
-    
+        const { startDate, dueDate } = req.query
+
         try {
             const hotel = await Hotel.findOne({
                 _id: new mongoose.Types.ObjectId(hotelId)
@@ -25,7 +53,7 @@ const hotelRoutes = app => {
                 path: 'rooms.reservations.review',
                 select: 'content stars createdAt'
             });
-    
+
             if (!hotel) {
                 return res.status(404).json({ error: 'Hotel not found' });
             }
@@ -57,6 +85,8 @@ const hotelRoutes = app => {
                     }
                 });
             });
+
+            hotel.rooms = await getAvailableRooms(hotelId, startDate, dueDate, getConveniences(req.query) )
             const averageRating = Math.round((totalReviews > 0 ? totalStars / totalReviews : 0)*10)/10;
     
             res.json({
@@ -68,14 +98,35 @@ const hotelRoutes = app => {
             res.status(500).json({ error: 'Internal server error' });
         }
     });
-    
 
     app.get("/hotels", async (req, res) => {       
+
+        let { startDate, dueDate, capacity, search } = req.query
+
+        startDate = startDate ? new Date(req.query.startDate) : undefined
+        dueDate = dueDate ? new Date(req.query.dueDate) : undefined
+        search = search || ""
+
         try {
-            const hotels = await Hotel.find({});
+            const hotels = fuzzySearchHotel(await Hotel.find({}), search);
             const hotelList = [];
 
             for (const hotel of hotels) {
+                if ( (await getAvailableRooms(
+                    hotel._id, 
+                    startDate, 
+                    dueDate, 
+                    getConveniences(req.query)
+                )).length == 0 ) {
+                    continue
+                }
+
+                const maxAvailableCapacity = hotel.rooms.reduce( (acc, room) => acc + room.maxCapacity, 0)
+
+                if ( maxAvailableCapacity < capacity ) {
+                    continue
+                }
+
                 let totalStars = 0;
                 let totalReviews = 0;
                 const conveniences = {
@@ -91,7 +142,7 @@ const hotelRoutes = app => {
                     parking: false,
                     inclusiveMeals: false,
                 };
-        
+
                 for (const room of hotel.rooms) {
                     for (const reservation of room.reservations) {
                         if (reservation.review && reservation.review.stars) {
@@ -100,10 +151,11 @@ const hotelRoutes = app => {
                         }
                     }
                     
-                    for (let key in room.conveniences) {
+                    for (let key in conveniences) {
                         if (room.conveniences[key])
                             conveniences[key] = true
                     }
+                    room.reservations = undefined
                 }
         
                 const avgRating = Math.round((totalReviews !== 0 ? totalStars / totalReviews : 0)*10)/10;
@@ -114,9 +166,9 @@ const hotelRoutes = app => {
                 });
             }
         
-            res.json({ hotels: hotelList });
+                res.json({ hotels: hotelList });
             } catch (error) {
-            res.status(500).json({ error: "Something went wrong" });
+                res.status(400).json({ error: error.message });
             }
         });
       

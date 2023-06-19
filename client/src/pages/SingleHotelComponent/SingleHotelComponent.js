@@ -19,7 +19,6 @@ import {
 import { AiOutlineWifi } from 'react-icons/ai';
 
 const SingleHotelComponent = ({ hotel,image, onClick }) => {
-  console.log(image)
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -88,7 +87,7 @@ const SingleHotelComponent = ({ hotel,image, onClick }) => {
           <p>Dodano: {formatDate(hotel?.createdAt)}</p>
           <p>| {hotel?.address?.city}</p>
         </div>
-        <p className='dsc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in . . . </p>
+        <p className='dsc'>{hotel?.description}. . . </p>
         <div className='footer'>
           <div className='icons-container'>{getFilteredIcons()}</div>
           <button className='btn'>Zamów nocleg</button>

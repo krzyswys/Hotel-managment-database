@@ -76,7 +76,6 @@ const SingleHotel = () => {
   };
   const enlargeImage = () => {
     setIsImageEnlarged(true);
-    console.log(isImageEnlarged)
   };
 
   const closeEnlargedView = () => {
@@ -104,8 +103,7 @@ const SingleHotel = () => {
     <div className="singleHotel-body">
       <div className="header-singleHotel">
         <div className="image-slider-container" 
-        style={{position : isImageEnlarged ? 'static' : 'relative',
-        width : isImageEnlarged ? '0px' : ''}}
+        
         >
           {averageRating !== 0 && (
             // <p className="review-mark singleHotel-review">{averageRating}</p>
@@ -151,12 +149,8 @@ const SingleHotel = () => {
             {hotel.name} <p>Od {formatDate(hotel.createdAt)} | {hotel.address?.country}, {hotel.address?.city}, {hotel.address?.street}, {hotel.address?.houseNumber}, {hotel.address?.postalCode}</p>
           </h2>
           <p className='dsc-singleHotel'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. Duis aute irure dolor in reprehenderit in orem ipsum dolor sit amet, consectetur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in
+            {hotel?.description}
+            
           </p>
           <button className='btn-singleHotel' onClick={addToCart}>Zamów</button>
         </div>
