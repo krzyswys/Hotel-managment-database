@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage/HomePage';
 import Registration from './pages/Registration/Registration';
 import Login from './pages/Login/Login';
 import History from './pages/History/History';
+import Cart from './pages/Cart/Cart';
 
 const Appp = () => {
   return (
@@ -20,6 +21,7 @@ const Appp = () => {
           <Route path="registration" element={<Registration />} />
           <Route path="login" element={<Login />} />
           <Route path="history" element={<History />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
       </Routes>
     </BrowserRouter>

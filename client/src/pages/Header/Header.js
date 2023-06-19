@@ -3,12 +3,13 @@ import './header.css'
 import { useNavigate } from 'react-router-dom';
 import appState from '../../State';
 import { useCookies } from 'react-cookie';
+import { BsCartFill } from 'react-icons/bs';
+
 
 const Header = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['user', 'username', 'validation']);
 
   const navigation = useNavigate();
-  // var count = 0
 
   const handleRegistrationClick = () => {
     navigation("registration");
@@ -35,6 +36,14 @@ const Header = () => {
     navigation("/");
   };
 
+  const handleCartClick = () => {
+    navigation("cart");
+  };
+
+  const getNumberOfCartElements = () => {
+    return appState.cart.reduce((n, element) => n + element.rooms.length, 0)
+  }
+
   var loginContent;
   if (appState.isLoggedIn)
     loginContent = <div className='nav-buttons'>
@@ -52,6 +61,13 @@ const Header = () => {
     <nav>
     <div className='nav-logo' onClick={handleHomeClick}>Logo | Nazwa</div>
     { loginContent }
+    <div class="cart-box" onClick={handleCartClick}>
+      <div class="cart-icon">
+        <BsCartFill key="cart"/>
+      </div>
+      {getNumberOfCartElements() > 0 &&
+      <p class="elements-in-cart">{ getNumberOfCartElements() }</p>}
+    </div>
   </nav>
   );
 };

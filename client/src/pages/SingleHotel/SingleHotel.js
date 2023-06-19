@@ -3,13 +3,18 @@ import React, { useState, useEffect } from "react";
 import SingleRoomComponent from '../SingleRoomComponent/SingleRoomComponent';
 import SingleReviewComponent from '../SingleReviewComponent/SingleReviewComponent';
 import { useParams } from 'react-router-dom';
+import appState from '../../State';
+import { useNavigate } from 'react-router-dom';
+
 const SingleHotel = () => {
+  const navigation = useNavigate();
   const { id } = useParams();
   const [hotel, setHotel] = useState([]); 
   const [rooms, setRooms] = useState([]);
   const [averageRating, setAverageRating] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [images, setImages] = useState([]);
+  const [roomCart, setRoomCart] = useState([]);
   useEffect(() => {
     const fetchHotel = async () => {
       try {
@@ -77,6 +82,23 @@ const SingleHotel = () => {
     setIsImageEnlarged(false);
   };
 
+  const addRoom = (room) => {
+    setRoomCart((prevCart) => prevCart.concat([room]))
+  }
+  const removeRoom = (room) => {
+    setRoomCart((prevCart) => prevCart.filter((val) => val != room))
+  }
+
+  const addToCart = () => {
+    if (roomCart.length <= 0)
+      return
+
+    appState.cart.push(
+      {hotel: hotel, rooms: roomCart}
+    )
+    navigation("../cart")
+  }
+
   return (
     <div className="singleHotel-body">
       <div className="header-singleHotel">
@@ -84,7 +106,8 @@ const SingleHotel = () => {
         
         >
           {averageRating !== 0 && (
-            <p className="review-mark singleHotel-review">{averageRating}</p>
+            // <p className="review-mark singleHotel-review">{averageRating}</p>
+            <p className="review-mark singleHotel-review">{Number(averageRating).toFixed(2)}</p>
           )}
 
           <div
@@ -129,13 +152,13 @@ const SingleHotel = () => {
             {hotel?.description}
             
           </p>
-          <button className='btn-singleHotel'>Zamów</button>
+          <button className='btn-singleHotel' onClick={addToCart}>Zamów</button>
         </div>
       </div>
 
       <div className='room-list'>
       {rooms?.map((room) => (
-          <SingleRoomComponent key={room.id} room={room} />
+          <SingleRoomComponent key={room.id} room={room} funs={{addRoom: addRoom, removeRoom: removeRoom}}/>
         ))}
       </div>
       <div className='review-list'>
