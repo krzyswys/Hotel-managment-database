@@ -106,7 +106,8 @@ const SingleHotel = () => {
         width : isImageEnlarged ? '0px' : ''}}
         >
           {averageRating !== 0 && (
-            <p className="review-mark singleHotel-review">{averageRating}</p>
+            // <p className="review-mark singleHotel-review">{averageRating}</p>
+            <p className="review-mark singleHotel-review">{Number(averageRating).toFixed(2)}</p>
           )}
 
           <div
