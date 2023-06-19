@@ -1,0 +1,18 @@
+.cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 80%;
+    margin: 2% 0% 2% 0%;
+    background-color: rgba(202, 202, 202, 0.363);
+    border-radius: 10px;
+    padding: 10px 30px;
+    backdrop-filter: blur(10px);
+}
+
+.cart>.cart-record {
+    width: 60%;
+}

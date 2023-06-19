@@ -81,11 +81,11 @@ const SingleHotel = () => {
     setIsImageEnlarged(false);
   };
 
-  const addRoom = (roomNumber) => {
-    setRoomCart((prevCart) => prevCart.concat([roomNumber]))
+  const addRoom = (room) => {
+    setRoomCart((prevCart) => prevCart.concat([room]))
   }
-  const removeRoom = (roomNumber) => {
-    setRoomCart((prevCart) => prevCart.filter((val) => val != roomNumber))
+  const removeRoom = (room) => {
+    setRoomCart((prevCart) => prevCart.filter((val) => val != room))
   }
 
   const addToCart = () => {
@@ -93,9 +93,9 @@ const SingleHotel = () => {
       return
 
     appState.cart.push(
-      {hotelId: -1, rooms: roomCart}
+      {hotel: hotel, rooms: roomCart}
     )
-    navigation("..")
+    navigation("../cart")
   }
 
   return (
@@ -161,7 +161,7 @@ const SingleHotel = () => {
 
       <div className='room-list'>
       {rooms?.map((room) => (
-          <SingleRoomComponent key={room.id} room={room} />
+          <SingleRoomComponent key={room.id} room={room} funs={{addRoom: addRoom, removeRoom: removeRoom}}/>
         ))}
       </div>
       <div className='review-list'>
