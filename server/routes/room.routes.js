@@ -47,7 +47,6 @@ const roomRoutes = app => {
                     reservations: false
                 }
             }])
-
             
             res.json({hotelId, rooms: rooms.filter(room => {
                 for (let key in conveniences) {
@@ -63,15 +62,28 @@ const roomRoutes = app => {
     })
 
 
-    //// TODO: finish it
     app.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
         const { hotelId, roomId } = req.params
         
-        const room = await Hotel.findOne({})
+        try {
+            const hotel = await Hotel.findOne({
+                _id: new mongoose.Types.ObjectId(hotelId)
+            }, {
+                "rooms.reservations": 0
+            })
+            
+            if (!hotel)
+                throw new Error("Hotel not found")
+    
+            const room = hotel.rooms.id(
+                new mongoose.Types.ObjectId(roomId)
+            )
+            
+            res.json({room})
 
-        const hotels = await Hotel.find({}, {rooms: 0})
-        
-        res.json({hotels})
+        } catch (error) {
+            res.status(400).json({error: error.message})
+        }
     })
 }
 
