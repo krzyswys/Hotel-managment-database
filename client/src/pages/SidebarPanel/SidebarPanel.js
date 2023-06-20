@@ -7,7 +7,7 @@ import { AiOutlineWifi } from 'react-icons/ai';
 
 
 
-const SidebarPanel = ({ onFilterSubmit })  => {
+const SidebarPanel = ({ onChange })  => {
   const [filters, setFilters] = useState({
     smoking: false,
     pets: false,
@@ -30,7 +30,7 @@ const SidebarPanel = ({ onFilterSubmit })  => {
     
   };
   useEffect(()=>{
-    onFilterSubmit(filters);
+    onChange(filters);
   },[filters]
   )
 
