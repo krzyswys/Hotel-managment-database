@@ -1,0 +1,12 @@
+.modify-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 60vw;
+    background-color: rgb(200, 200, 200);
+    padding: 30px;
+    border-radius: 5px;
+}

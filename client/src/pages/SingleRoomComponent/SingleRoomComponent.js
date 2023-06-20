@@ -62,7 +62,7 @@ const SingleRoomComponent = (props) => {
   const [isRoomTaken, setRoomTaken] = useState(false);
   const getDisplayedButton = () => {
     if (isRoomTaken)
-      return <button className='room-btn remove' onClick={
+      return <button className='room-btn remove-btn' onClick={
         () => {
           props.funs.removeRoom(room)
           setRoomTaken((_) => false)
