@@ -24,9 +24,24 @@ const SingleHotel = props => {
         const response = await fetch(`http://localhost:4000/hotel/${id}`);
         const data = await response.json();
         const imagesS = await extractImageLinks(data.hotel);
+        const queryParams = new URLSearchParams(removeUndefined(filters));
+        const startDate = searchParams.get("startDate")
+        const endDate = searchParams.get("dueDate")
+
+
+        if (startDate && endDate) {
+          queryParams.set('startDate', startDate);
+          queryParams.set('dueDate', endDate);
+        }
+        const response2 = await fetch(
+          `http://localhost:4000/hotel/${id}/rooms?${new URLSearchParams(queryParams)}`
+        );
+
+        const data2 = await response2.json();
+
+        setRooms(data2.rooms);
 
         setHotel(data.hotel);
-        setRooms(data.hotel.rooms);
         setAverageRating(data.averageRating);
         setReviews(data.reviews);
         setImages(imagesS)

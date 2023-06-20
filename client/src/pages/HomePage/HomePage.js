@@ -82,7 +82,11 @@ const HomePage = () => {
     return firstImageLinks;
   }
   
-
+/* <div className="hotel-query-container">
+  {hotels.length !== 0 && hotels.map((hotel, index) => (
+    <SingleHotelComponent key={hotel._id} hotel={hotel} image={images[index]} onClick={() => handleHotelClick(hotel._id)} />
+  ))}
+</div> */
   return (
     <div className="home-page">
       <div className="title-container">
