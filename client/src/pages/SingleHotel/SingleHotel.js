@@ -200,7 +200,7 @@ const SingleHotel = props => {
        <h3 className="filter-call">Filtry</h3>
       <div className="sidebar">
         <div className="sidebar-panel">
-          <SidebarPanel onFilterSubmit={handleFilterSubmit}/>
+          <SidebarPanel onChange={handleFilterSubmit}/>
         </div>
       </div>
     </div>
