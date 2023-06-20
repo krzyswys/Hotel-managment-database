@@ -1,4 +1,4 @@
-const { Person } = require('models')
+const { Employee } = require('models')
 module.exports = {
     checkEmployeePositionById: async(id)=>{
         try {

@@ -2,11 +2,12 @@ import './SingleHotel.css';
 import React, { useState, useEffect } from "react";
 import SingleRoomComponent from '../SingleRoomComponent/SingleRoomComponent';
 import SingleReviewComponent from '../SingleReviewComponent/SingleReviewComponent';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import appState from '../../State';
 import { useNavigate } from 'react-router-dom';
-
-const SingleHotel = () => {
+import SidebarPanel from '../SidebarPanel/SidebarPanel';
+const SingleHotel = props => {
+  const [filters, setFilters] = useState({});
   const navigation = useNavigate();
   const { id } = useParams();
   const [hotel, setHotel] = useState([]); 
@@ -15,6 +16,8 @@ const SingleHotel = () => {
   const [reviews, setReviews] = useState([]);
   const [images, setImages] = useState([]);
   const [roomCart, setRoomCart] = useState([]);
+  const [searchParams] =useSearchParams()
+  
   useEffect(() => {
     const fetchHotel = async () => {
       try {
@@ -31,14 +34,38 @@ const SingleHotel = () => {
         console.error('Error fetching hotels:', error);
       }
     };
-    console.log(hotel)
+
 
     fetchHotel();
   }, []);
-  useEffect(()=>{
-    console.log(hotel)
+  const removeUndefined = obj => {
+    Object.keys(obj).forEach(key => !obj[key] && delete obj[key])
+    return obj
+  }
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+          const queryParams = new URLSearchParams(removeUndefined(filters));
+          const startDate = searchParams.get("startDate")
+          const endDate = searchParams.get("dueDate")
+        if (startDate && endDate) {
+          queryParams.set('startDate', startDate);
+          queryParams.set('endDate', endDate);
+        }
+        const response = await fetch(
+          `http://localhost:4000/hotel/${id}/rooms?${new URLSearchParams(queryParams)}`
+        );
 
-  },[rooms]);
+        const data = await response.json();
+
+        setRooms(data.rooms);
+      } catch (error) {
+        console.error("Błąd pobierania pokoi:", error);
+      }
+    };
+
+    fetchRooms();
+  }, [filters]);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
@@ -98,6 +125,10 @@ const SingleHotel = () => {
     )
     navigation("../cart")
   }
+
+  const handleFilterSubmit = (filterValues) => {
+    setFilters(filterValues);
+  };
 
   return (
     <div className="singleHotel-body">
@@ -165,6 +196,12 @@ const SingleHotel = () => {
         {reviews?.map((review) => (
             <SingleReviewComponent key={review.id} review={review} />
           ))}
+      </div>
+       <h3 className="filter-call">Filtry</h3>
+      <div className="sidebar">
+        <div className="sidebar-panel">
+          <SidebarPanel onChange={handleFilterSubmit}/>
+        </div>
       </div>
     </div>
   );

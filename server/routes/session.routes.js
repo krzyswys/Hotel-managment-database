@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { Person } = require('models')
+const { checkEmployeePositionById } = require('procedures/employee.proc')
 
 const sessionRoutes = app => {
     
@@ -49,7 +50,6 @@ const sessionRoutes = app => {
         } = req.body 
         
         //// VALIDATE DATE ////
-        console.log(req.body)
 
         try {
             const newPerson = await new Person({
@@ -69,6 +69,46 @@ const sessionRoutes = app => {
         }
 
     })
+    app.post("/registerEmployee", async (req, res) => {
+        const { 
+            firstname, 
+            lastname, 
+            birthdate,
+            email,
+            phone,
+            address,
+            password,
+            position,
+            salary
+        } = req.body 
+        
+        //// VALIDATE DATE ////
+
+        try {
+            const newEmployee = await new Employee({
+                firstname,
+                lastname,
+                birthdate,
+                email,
+                phone,
+                address,
+                password,
+                position,
+                salary
+            })
+
+            await newEmployee.save()
+            res.json({validation: 'true', personId: newEmployee._id, name: newEmployee.firstname})
+        } catch (error) {
+            res.status(400).json({ error: error.message })
+        }
+
+    })
+    app.get("/checkRegisterEmployee/:personId", async (req, res) => {       
+            const {personId} = req.params
+            const value = await checkEmployeePositionById(personId)
+            res.json({value})
+        })
     
 }
 

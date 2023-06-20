@@ -27,7 +27,9 @@ const Registration = () => {
     flatNumber: '4',
     postalCode: '00-000'
   });
-  
+  const [salary, setSalary] = useState(123); 
+  const [position, setPosition] = useState('Employee'); 
+  const [isEmployee, setIsEmployee] = useState(false);
   
   
   const navigation = useNavigate();
@@ -60,7 +62,17 @@ const Registration = () => {
       [event.target.name]: event.target.value
     });
   };
-  
+  const handleSalaryChange = (event) => {
+    setSalary(event.target.value);
+  };
+
+  const handlePositionChange = (event) => {
+    setPosition(event.target.value);
+  };
+
+  const handleCheckboxChange = (event) => {
+    setIsEmployee(event.target.checked);
+  };
 
   const isPasswordValid = () => {
     const hasMinimumLength = password.length >= 8;
@@ -74,17 +86,26 @@ const Registration = () => {
     event.preventDefault();
   
     try {
-      const response = await fetch('http://localhost:4000/register', {
+
+      const endpoint = isEmployee ? 'registerEmployee' : 'register';
+      const bodyData = {
+        firstname,
+        lastname,
+        birthdate,
+        email,
+        phone,
+        address,
+        password
+      };
+  
+      if (isEmployee) {
+        bodyData.salary = salary;
+        bodyData.position = position;
+      }
+      const response = await fetch(`http://localhost:4000/${endpoint}`, {
         method: 'POST',
         body: JSON.stringify({
-          firstname,
-          lastname,
-          birthdate,
-          email,
-          phone,
-          address,
-          password
-
+         bodyData
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -114,10 +135,14 @@ const Registration = () => {
     }
   }, [cookies, navigation]);
 
+  <div className="form-group">
+  
+</div>
   return (
     <div className='container'>
 <div className="registration-container">
-      <h2>Rejestracja</h2>
+      <h2><p>Rejestracja</p> <label htmlFor="isEmployee">Pracownik: </label>
+  <input type="checkbox" id="isEmployee" checked={isEmployee} onChange={handleCheckboxChange} /></h2>
       <form onSubmit={handleSubmit}>
         <div className='formm-container'> 
         <div className="form-group">
@@ -164,6 +189,19 @@ const Registration = () => {
           <label htmlFor="username">Email:</label>
           <input type="text" id="username" name="username" value={email} onChange={handleEmailChange} required />
         </div>
+        {isEmployee && (
+          <div>
+            <div className="form-group">
+              <label htmlFor="salary">Salary:</label>
+              <input type="number" id="salary" value={salary} onChange={handleSalaryChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="position">Position:</label>
+              <input type="text" id="position" value={position} onChange={handlePositionChange} required />
+            </div>
+          </div>
+        )}
+       
         <div className="form-group">
           <label htmlFor="password">Hasło:</label>
           <input type="password" id="password" name="password" value={password} onChange={handlePasswordChange} required />

@@ -7,7 +7,9 @@ import { AiOutlineWifi } from 'react-icons/ai';
 
 
 
-const SidebarPanel = ({onChange}) => {
+
+const SidebarPanel = ({ onChange })  => {
+
   const [filters, setFilters] = useState({
     smoking: false,
     pets: false,
@@ -31,6 +33,7 @@ const SidebarPanel = ({onChange}) => {
       ...prevFilters,
       [filterName]: !prevFilters[filterName],
     }));
+    
   };
 
   return (

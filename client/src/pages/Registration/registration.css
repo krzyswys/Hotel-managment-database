@@ -14,12 +14,7 @@
 
   }
   
-  h2 {
-   
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
+
   
   form {
     display: flex;
@@ -102,4 +97,16 @@
   .password-validation .special-char.invalid {
     color: #f44336;
     font-weight: bold;
+  }
+  .registration-container h2 {
+   
+    text-align: start;
+    margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    font-size: 1.5em;
+    width: 100%;
   }
