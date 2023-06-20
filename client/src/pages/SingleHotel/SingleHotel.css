@@ -147,3 +147,16 @@ iframe:hover{
     z-index: 0;
 }
 
+.sidebar:hover {
+    left: 0;
+}
+
+
+.sidebar {
+    position: fixed;
+    top: 50%;
+    left: -20vw;
+    transform: translateY(-50%);
+    width: 200px;
+    transition: all 0.3s ease;
+  }

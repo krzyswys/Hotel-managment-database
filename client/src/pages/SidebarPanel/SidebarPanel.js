@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './sidebar.css'
 import { FaSmoking,FaChild,FaParking } from 'react-icons/fa';
 import { MdPets,MdOutlineBalcony,MdElevator,MdFastfood,MdRestaurantMenu } from 'react-icons/md';
@@ -7,7 +7,7 @@ import { AiOutlineWifi } from 'react-icons/ai';
 
 
 
-const SidebarPanel = () => {
+const SidebarPanel = ({ onFilterSubmit })  => {
   const [filters, setFilters] = useState({
     smoking: false,
     pets: false,
@@ -27,10 +27,14 @@ const SidebarPanel = () => {
       ...prevFilters,
       [filterName]: !prevFilters[filterName],
     }));
+    
   };
-  const handleFilterSubmit = () => {
-    console.log('Wykonaj filtrowanie:', filters);
-  };
+  useEffect(()=>{
+    onFilterSubmit(filters);
+  },[filters]
+  )
+
+
 
   return (
     <div className="sidebar-container">
@@ -207,7 +211,6 @@ const SidebarPanel = () => {
         </label>
       </div>
     </div>
-  <button onClick={handleFilterSubmit}>Filtruj</button>
 </div>
 
   
