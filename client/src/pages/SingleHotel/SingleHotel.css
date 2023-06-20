@@ -59,6 +59,8 @@ iframe:hover{
     width: 4%;
     height: 70%;
     transition: 0.1s;
+    margin: 0px;
+    padding: 0px;
    
 }
 .slider-button:hover {
