@@ -34,3 +34,25 @@ npm start
 ### Schemat bazy danych
 ![database_schema](https://github.com/krzyswys/Hotel-managment-database/assets/110239601/c58686f1-0446-4b0e-a47a-ae8e67f7130a)
 
+
+###Prezentacja projektu:
+
+<h4 align="center">Strona głowna: </h4>
+
+https://github.com/krzyswys/Hotel-managment-database/assets/110239601/53283bb3-e624-4b8c-b299-83ae05a47ff6
+
+https://github.com/krzyswys/Hotel-managment-database/assets/110239601/c0c3ce8f-2487-49a3-8c5c-713dd5326916
+
+https://github.com/krzyswys/Hotel-managment-database/assets/110239601/cf96c19d-b17c-4dfa-9288-138bf1bbd77a
+
+<h4 align="center">Widok pojedynczego hotelu: </h4>
+
+https://github.com/krzyswys/Hotel-managment-database/assets/110239601/cf2d70b7-2999-4d1b-8a86-c154d5a35eeb
+
+https://github.com/krzyswys/Hotel-managment-database/assets/110239601/2112e95f-e34b-4698-aa75-4d1a9b068639
+
+<h4 align="center">Logowanie i widok menadżera: </h4>
+
+https://github.com/krzyswys/Hotel-managment-database/assets/110239601/d55aade8-92fc-4666-8952-1bc2653de8d4
+
+
